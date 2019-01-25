@@ -8,7 +8,7 @@ public class ItemSpawnController : MonoBehaviour
 {
     public float MinDelay = 10.0f;
     public float MaxDelay = 20.0f;
-    public GameObject[] SpawneableObjects;
+    public GameObject SpawneableObject;
 
     private GameObject[] SpawnPoints;
     private GameObject LastSpawn = null;
@@ -49,7 +49,6 @@ public class ItemSpawnController : MonoBehaviour
 
     private void SpawnObject(GameObject where)
     {
-        GameObject spawned = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        spawned.transform.position = where.transform.position;
+        Instantiate(SpawneableObject, where.transform.position, Quaternion.identity);
     }
 }
