@@ -41,7 +41,7 @@ public class ItemSpawnController : MonoBehaviour
         {
             int which = Random.Range(0, SpawnPoints.Length);
             selected = SpawnPoints[which];
-        } while (selected == LastSpawn);
+        } while (selected == LastSpawn && (SpawnPoints.Length > 1) );
 
         LastSpawn = selected;
         return selected;

@@ -6,13 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerLifeController))]
 public class PlayerController : MonoBehaviour
 {
-    public float mSpeed = 1.0f;
-    public float MinSpeedFactor = 0.4f;
-    public float MaxSpeedFactor = 1.0f;
+    public float   mSpeed = 1.0f;
+    public float   MinSpeedFactor = 0.4f;
+    public float   MaxSpeedFactor = 1.0f;
+    public Vector3 mAttatchOffset = new Vector3(0.5f, 0.0f, 0.0f);
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
     private bool enableMovement = true;
+
+    private GameObject mCurrentPickup;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +46,7 @@ public class PlayerController : MonoBehaviour
             mRigidbody.velocity = Vector3.zero;
         }
     }
-
+    
     private float GetSpeed()
     {
         // TODO: Maybe use a Bezier curve
@@ -54,5 +58,19 @@ public class PlayerController : MonoBehaviour
     {
         enableMovement = false;
         // TODO: Throw held objects
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Pickup")
+        {
+            mCurrentPickup = Instantiate(other.GetComponent<PickupTrigger>().mPickupObject, transform);
+            mCurrentPickup.transform.parent = transform;
+            mCurrentPickup.transform.localPosition = mAttatchOffset;
+            mCurrentPickup.GetComponent<Collider>().enabled = false;
+            mCurrentPickup.GetComponent<Rigidbody>().isKinematic = true;
+        }
+
+        Destroy(other.gameObject);
     }
 }
