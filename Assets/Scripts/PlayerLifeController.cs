@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.UIElements;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class PlayerLifeController : MonoBehaviour
     public float Life = 100.0f;
     public bool DecrementLife = true;
     public float LifeDecrementFactor = 1.0f;
+
+    public event Action OnDie;
 
     // Update is called once per frame
     void Update()
@@ -19,7 +22,10 @@ public class PlayerLifeController : MonoBehaviour
             if (Life <= 0.0f)
             {
                 DecrementLife = false;
-                // TODO: Die
+                if (OnDie != null)
+                {
+                    OnDie();
+                }
             }
         }
     }
