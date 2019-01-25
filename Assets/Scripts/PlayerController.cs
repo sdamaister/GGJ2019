@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
+    private bool enableMovement = true;
 
     // Start is called before the first frame update
     void Start()
@@ -21,17 +22,20 @@ public class PlayerController : MonoBehaviour
 
         playerLife = GetComponent<PlayerLifeController>();
         Assert.IsNotNull(playerLife);
+
+        playerLife.OnDie += OnPlayerDied;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         float lMoveHorizontal = Input.GetAxis("Horizontal");
-        float lMoveVertical   = Input.GetAxis("Vertical");
+        float lMoveVertical = Input.GetAxis("Vertical");
 
-        if ( (lMoveHorizontal) != 0.0f || (lMoveVertical != 0.0f) )
+        if (enableMovement && ((lMoveHorizontal) != 0.0f || (lMoveVertical != 0.0f)))
         {
-            mRigidbody.velocity = Vector3.Normalize( new Vector3(lMoveHorizontal, 0.0f, lMoveVertical) ) * GetSpeed() * Time.deltaTime;
+            mRigidbody.velocity = Vector3.Normalize(new Vector3(lMoveHorizontal, 0.0f, lMoveVertical)) *
+                                  GetSpeed() * Time.deltaTime;
         }
         else
         {
@@ -44,5 +48,11 @@ public class PlayerController : MonoBehaviour
         // TODO: Maybe use a Bezier curve
         float speedFactor = Mathf.Lerp(MinSpeedFactor, MaxSpeedFactor, playerLife.Life * 0.01f);
         return speedFactor * mSpeed;
+    }
+
+    private void OnPlayerDied()
+    {
+        enableMovement = false;
+        // TODO: Throw held objects
     }
 }
