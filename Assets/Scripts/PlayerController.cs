@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float mSpeed = 1.0f;
+    public float   mSpeed         = 1.0f;
+    public Vector3 mAttatchOffset = new Vector3(0.5f, 0.0f, 0.0f);
 
-    private Rigidbody mRigidbody;
+    private Rigidbody  mRigidbody;
+    private GameObject mCurrentPickup;
 
     // Start is called before the first frame update
     void Start()
@@ -30,5 +32,19 @@ public class PlayerController : MonoBehaviour
         {
             mRigidbody.velocity = Vector3.zero;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Pickup")
+        {
+            mCurrentPickup = Instantiate(other.GetComponent<PickupTrigger>().mPickupObject, transform);
+            mCurrentPickup.transform.parent = transform;
+            mCurrentPickup.transform.localPosition = mAttatchOffset;
+            mCurrentPickup.GetComponent<Collider>().enabled = false;
+            mCurrentPickup.GetComponent<Rigidbody>().isKinematic = true;
+        }
+
+        Destroy(other.gameObject);
     }
 }
