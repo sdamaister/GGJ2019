@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -82,7 +82,7 @@ public class TorchItem : Pickable
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerController>().PickObject(gameObject);
+            collision.gameObject.GetComponent<PlayerController>().TryPickObject(gameObject);
         }
     }
 
