@@ -22,13 +22,14 @@ public class PlayerController : MonoBehaviour
     public float MaxSpeedFactor = 1.0f;
     public float mAttatchOffset = 0.5f;
     public float mDashForce     = 10.0f;
-    public float AttackTime = 2.0f;
+    public float AttackCooldownTime = 2.0f;
+    public float StunCooldownTime = 3.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
     private InputManager mInputManager;
     private GameObject attackBox;
-    private float attackRemainingTime = 0.0f;
+    private float cooldownRemainingTime = 0.0f;
 
     private Pickable mCurrentPickup;
 
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
     public void Stun()
     {
         DropHeldObject();
+        cooldownRemainingTime = StunCooldownTime;
     }
 
     // Start is called before the first frame update
@@ -84,6 +86,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (cooldownRemainingTime > 0.0f)
+        {
+            cooldownRemainingTime -= Time.deltaTime;
+        }
+
         switch(mCurrentState)
         {
             case EPlayerState.eIdle:
@@ -95,6 +102,7 @@ public class PlayerController : MonoBehaviour
             case EPlayerState.eDashing:
                 break;
             case EPlayerState.eStunned:
+                OnStun();
                 break;
             case EPlayerState.eDead:
                 break;
@@ -141,7 +149,7 @@ public class PlayerController : MonoBehaviour
         mCurrentState = EPlayerState.eAttacking;
 
         attackBox.SetActive(true);
-        attackRemainingTime = AttackTime;
+        cooldownRemainingTime = AttackCooldownTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -194,11 +202,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack()
     {
-        attackRemainingTime -= Time.deltaTime;
-
-        if (attackRemainingTime <= 0.0f)
+        if (cooldownRemainingTime <= 0.0f)
         {
             attackBox.SetActive(false);
+            mCurrentState = EPlayerState.eIdle;
+        }
+    }
+
+    private void OnStun()
+    {
+        if (cooldownRemainingTime <= 0)
+        {
             mCurrentState = EPlayerState.eIdle;
         }
     }
