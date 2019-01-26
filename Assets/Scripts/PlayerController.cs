@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
     public float MinSpeedFactor = 0.4f;
     public float MaxSpeedFactor = 1.0f;
     public float mAttatchOffset = 0.5f;
-    public float DropDistance = 1.1f;
-    public float DropForce = 40.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
@@ -38,12 +36,15 @@ public class PlayerController : MonoBehaviour
 
     public void DropHeldObject()
     {
-        mCurrentPickup.OnDropped(this);
         mCurrentPickup.transform.parent = null;
+        mCurrentPickup.OnDropped(this);
 
-        mCurrentPickup.transform.position = transform.position + (transform.right * DropDistance);
-        mCurrentPickup.GetComponent<Rigidbody>().AddForce(transform.forward * DropForce);
         mCurrentPickup = null;
+    }
+
+    public void Stun()
+    {
+        DropHeldObject();
     }
 
     // Start is called before the first frame update
@@ -108,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Pickup")
+        if (other.tag == "Pickup" && mCurrentPickup == null)
         {
             GameObject pickedGameObject = Instantiate(other.GetComponent<PickupTrigger>().mPickupObject, transform);
             PickObject(pickedGameObject);

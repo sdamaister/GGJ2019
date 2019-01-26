@@ -5,7 +5,10 @@ using UnityEngine;
 public class TorchItem : Pickable
 {
     private readonly float CooldownTime = 10.0f;
-    
+
+    public float DropDistance = 1.1f;
+    public float DropForce = 40.0f;
+
     private float Cooldown = 0.0f;
     private List<GameObject> Players;
 
@@ -28,6 +31,9 @@ public class TorchItem : Pickable
         GetComponent<SphereCollider>().enabled = false;
         GetComponent<CapsuleCollider>().enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;
+
+        transform.position = transform.position + (trigger.transform.right * DropDistance);
+        GetComponent<Rigidbody>().AddForce(trigger.transform.forward * DropForce);
 
         DecrementLife();
     }
