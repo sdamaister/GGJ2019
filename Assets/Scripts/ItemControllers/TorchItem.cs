@@ -15,6 +15,8 @@ public class TorchItem : Pickable
 
     public override void OnPickedUp(PlayerController trigger)
     {
+        base.OnPickedUp(trigger);
+
         GetComponent<SphereCollider>().enabled = true;
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
@@ -22,11 +24,15 @@ public class TorchItem : Pickable
 
     public override void OnAction(PlayerController trigger)
     {
+        base.OnAction(trigger);
+
         trigger.DropHeldObject();
     }
 
     public override void OnDropped(PlayerController trigger)
     {
+        base.OnDropped(trigger);
+
         Cooldown = CooldownTime;
 
         GetComponent<SphereCollider>().enabled = false;
@@ -46,6 +52,8 @@ public class TorchItem : Pickable
 
     public override void OnDemoBegin()
     {
+        enableCooldown = false;
+
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.velocity = Vector3.zero;
         rigidbody.angularVelocity = Vector3.zero;

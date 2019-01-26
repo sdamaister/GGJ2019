@@ -9,6 +9,8 @@ public class StickItem : Pickable
 
     public override void OnPickedUp(PlayerController trigger)
     {
+        base.OnPickedUp(trigger);
+
         Collider collider = GetComponent<Collider>();
         collider.enabled = true;
         collider.isTrigger = true;
@@ -19,6 +21,8 @@ public class StickItem : Pickable
 
     public override void OnAction(PlayerController trigger)
     {
+        base.OnAction(trigger);
+
         trigger.DropHeldObject();
 
         float y = transform.position.y;
@@ -34,6 +38,8 @@ public class StickItem : Pickable
 
     public override void OnDropped(PlayerController trigger)
     {
+        base.OnDropped(trigger);
+
         GetComponent<Collider>().isTrigger = false;
         GetComponent<Rigidbody>().isKinematic = false;
     }

@@ -6,9 +6,18 @@ public abstract class Pickable : MonoBehaviour
 {
     public ItemSpawnController Spawner;
 
-    public virtual void OnPickedUp(PlayerController trigger) {}
+    private bool held = false;
+
+    public virtual void OnPickedUp(PlayerController trigger)
+    {
+        held = true;
+    }
     public virtual void OnAction(PlayerController trigger) {}
-    public virtual void OnDropped(PlayerController trigger) {}
+
+    public virtual void OnDropped(PlayerController trigger)
+    {
+        held = false;
+    }
 
     public virtual void DoDestroy()
     {
@@ -19,6 +28,6 @@ public abstract class Pickable : MonoBehaviour
 
     protected bool IsBeingHeld()
     {
-        return transform.parent != null && transform.parent.tag == "Player";
+        return held;
     }
 }
