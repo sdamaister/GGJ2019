@@ -15,6 +15,8 @@ public abstract class Pickable : MonoBehaviour
         Spawner.ItemDestroyed(gameObject);
     }
 
+    public abstract void OnDemoBegin();
+
     protected bool IsBeingHeld()
     {
         return transform.parent != null && transform.parent.tag == "Player";

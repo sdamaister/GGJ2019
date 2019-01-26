@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,16 +16,15 @@ public class PickupTrigger : MonoBehaviour
     public void SetPickupObject(GameObject item)
     {
         mPickupObject = item;
-        mPickupObject.GetComponent<Collider>().enabled = false;
+        mPickupObject.GetComponent<Pickable>().OnDemoBegin();
     }
     
     private void OnDestroy()
     {
-        mPickupObject.GetComponent<Collider>().enabled = true;
-        ItemSpawnController isc = FindObjectOfType<ItemSpawnController>();
-        if (SpawnedFrom != null && isc != null)
+        Pickable pickable = mPickupObject.GetComponent<Pickable>();
+        if (SpawnedFrom != null && pickable.Spawner != null)
         {
-            isc.ItemPickedUp(SpawnedFrom);
+            pickable.Spawner.ItemPickedUp(SpawnedFrom);
         }
     }
 }

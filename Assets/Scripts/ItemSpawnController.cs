@@ -34,12 +34,12 @@ public class ItemSpawnController : MonoBehaviour
             GameObject item = Instantiate(SpawneableObject);
             item.name = SpawneableObject.name + " #" + i;
             item.GetComponent<Pickable>().Spawner = this;
+
             item.transform.parent = transform;
+
             item.transform.localPosition = Vector3.zero;
-            item.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            item.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            item.GetComponent<Rigidbody>().Sleep();
-            
+            item.transform.rotation = Quaternion.identity;
+
             item.SetActive(false);
             ItemPool.Add(item);
         }
@@ -110,10 +110,6 @@ public class ItemSpawnController : MonoBehaviour
 
         PickupTrigger trigger = spawned.AddComponent<PickupTrigger>();
         trigger.SpawnedFrom = where;
-
-        item.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        item.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        item.GetComponent<Rigidbody>().Sleep();
 
         trigger.SetPickupObject(item);
         trigger.transform.position = where.transform.position;

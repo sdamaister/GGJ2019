@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,6 +39,18 @@ public class TorchItem : Pickable
         DecrementLife();
 
         enableCooldown = true;
+    }
+
+    public override void OnDemoBegin()
+    {
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+        rigidbody.Sleep();
+
+        rigidbody.isKinematic = true;
+
+        GetComponent<CapsuleCollider>().enabled = false;
     }
 
     void Start()

@@ -35,6 +35,16 @@ public class StickItem : Pickable
         GetComponent<Rigidbody>().isKinematic = false;
     }
 
+    public override void OnDemoBegin()
+    {
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+        rigidbody.Sleep();
+
+        GetComponent<Collider>().enabled = false;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject != thrower)
