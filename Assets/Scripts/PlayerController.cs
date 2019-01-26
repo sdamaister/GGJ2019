@@ -7,11 +7,20 @@ using UnityEngine;
 [RequireComponent(typeof(InputManager))]
 public class PlayerController : MonoBehaviour
 {
+    private enum EPlayerState
+    {
+        eIdle,
+        eAttacking,
+        eDashing,
+        eStunned,
+    }
+
     public int   mPlayerIdX     = 0;
     public float mSpeed         = 150.0f;
     public float MinSpeedFactor = 0.4f;
     public float MaxSpeedFactor = 1.0f;
     public float mAttatchOffset = 0.5f;
+    public float mDashForce     = 10.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
@@ -19,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private bool enableMovement = true;
 
     private Pickable mCurrentPickup;
+
+    private EPlayerState mCurrentState;
 
     public void PickObject(GameObject pickup)
     {
@@ -36,10 +47,13 @@ public class PlayerController : MonoBehaviour
 
     public void DropHeldObject()
     {
-        mCurrentPickup.transform.parent = null;
-        mCurrentPickup.OnDropped(this);
+        if (mCurrentPickup != null)
+        {
+            mCurrentPickup.transform.parent = null;
+            mCurrentPickup.OnDropped(this);
 
-        mCurrentPickup = null;
+            mCurrentPickup = null;
+        }
     }
 
     public void Stun()
@@ -77,6 +91,20 @@ public class PlayerController : MonoBehaviour
                 mCurrentPickup.OnAction(this);
             }
         }
+
+        switch(mCurrentState)
+        {
+            case EPlayerState.eIdle:
+                break;
+            case EPlayerState.eAttacking:
+                break;
+            case EPlayerState.eDashing:
+                break;
+            case EPlayerState.eStunned:
+                break;
+            default:
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -86,6 +114,11 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 lMovementVec = mInputManager.GetMoveVector();
             mRigidbody.velocity = (lMovementVec.magnitude > 0.0f) ? (lMovementVec * GetSpeed() * Time.deltaTime) :  Vector3.zero;
+
+            if (mInputManager.IsDashPressed())
+            {
+                Dash();
+            }
         }
     }
     
@@ -122,5 +155,11 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + (transform.forward * 3.0f));
+    }
+
+    private void Dash()
+    {
+        Vector3 lMoveDir = mRigidbody.velocity.normalized;
+        mRigidbody.AddForce(lMoveDir * mDashForce);
     }
 }

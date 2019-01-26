@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    private enum EButtonState
+    {
+        eUnPressed,
+        ePressed,
+    }
+
     public int  mControllerIdx = 0;
     public bool mOrientWithMovement = true;
 
@@ -44,5 +50,10 @@ public class InputManager : MonoBehaviour
     public bool IsRightTriggerPressed()
     {
         return Input.GetAxis("TriggerR " + mControllerIdx) > 0.5f;
+    }
+
+    public bool IsDashPressed()
+    {
+        return Input.GetButtonDown("Dash " + mControllerIdx);
     }
 }
