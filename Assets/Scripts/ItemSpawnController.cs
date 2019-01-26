@@ -9,6 +9,7 @@ public class ItemSpawnController : MonoBehaviour
     public float MinDelay = 10.0f;
     public float MaxDelay = 20.0f;
     public float FirstDelay = 1.0f;
+    public int InitialAmount = 3;
 
     public String SpawnPointsTag = "spawn";
     public GameObject SpawneableObject;
@@ -42,6 +43,10 @@ public class ItemSpawnController : MonoBehaviour
 
             item.SetActive(false);
             ItemPool.Add(item);
+        }
+
+        for (int i = 0; i < InitialAmount; ++i) {
+            SpawnObject(SelectNextSpawnPoint());
         }
     }
 
