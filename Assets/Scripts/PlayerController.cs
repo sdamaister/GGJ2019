@@ -15,10 +15,17 @@ public class PlayerController : MonoBehaviour
     private PlayerLifeController playerLife;
     private bool enableMovement = true;
 
-    private GameObject mCurrentPickup;
+    private Pickable mCurrentPickup;
 
     private float mJoystickMovementEpsilon = 0.1f;
     private float mJoystickLookEpsilon     = 0.05f;
+    
+    public void DropHeldObject()
+    {
+        mCurrentPickup.OnDropped(this);
+        mCurrentPickup.transform.parent = null;
+        mCurrentPickup = null;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -73,20 +80,29 @@ public class PlayerController : MonoBehaviour
         // TODO: Throw held objects
     }
 
+    private void PickObject(GameObject pickup)
+    {
+        pickup.transform.parent = transform;
+        pickup.transform.localPosition = transform.forward * mAttatchOffset;
+        pickup.transform.rotation      = transform.rotation;
+        pickup.GetComponent<Collider>().isTrigger = true;
+        pickup.GetComponent<Rigidbody>().isKinematic = true;
+
+        mCurrentPickup = pickup.GetComponent<Pickable>();
+        Assert.IsNotNull(mCurrentPickup, "Object " + pickup.name + " doesn't have a 'Pickable' component");
+
+        mCurrentPickup.OnPickedUp(this);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Pickup")
         {
-            mCurrentPickup = Instantiate(other.GetComponent<PickupTrigger>().mPickupObject, transform);
-            mCurrentPickup.transform.parent        = transform;
-            mCurrentPickup.transform.localPosition = transform.forward * mAttatchOffset;
-            mCurrentPickup.transform.rotation      = transform.rotation;
+            GameObject pickedGameObject = Instantiate(other.GetComponent<PickupTrigger>().mPickupObject, transform);
+            PickObject(pickedGameObject);
 
-            mCurrentPickup.GetComponent<Collider>().enabled = false;
-            mCurrentPickup.GetComponent<Rigidbody>().isKinematic = true;
+            Destroy(other.gameObject);
         }
-
-        Destroy(other.gameObject);
     }
 
     private void OnDrawGizmos()
