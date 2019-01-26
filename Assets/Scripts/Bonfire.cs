@@ -13,7 +13,7 @@ public class Bonfire : MonoBehaviour
         {
             PlayerController lPlayerControllerComp = other.GetComponent<PlayerController>();
             Assert.IsNotNull(lPlayerControllerComp);
-            if ( lPlayerControllerComp != null && 
+            if ( lPlayerControllerComp != null &&
                 (lPlayerControllerComp.mPlayerIdX == mBonfireIdx) )
             {
                 Debug.Log("Player " + mBonfireIdx + " enters bonfire!");
