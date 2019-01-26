@@ -4,9 +4,16 @@ using UnityEngine;
 
 public abstract class Pickable : MonoBehaviour
 {
+    public ItemSpawnController Spawner;
+
     public virtual void OnPickedUp(PlayerController trigger) {}
     public virtual void OnAction(PlayerController trigger) {}
     public virtual void OnDropped(PlayerController trigger) {}
+
+    public virtual void DoDestroy()
+    {
+        Spawner.ItemDestroyed(gameObject);
+    }
 
     protected bool IsBeingHeld()
     {

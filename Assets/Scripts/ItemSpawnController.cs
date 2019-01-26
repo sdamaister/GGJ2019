@@ -8,19 +8,40 @@ public class ItemSpawnController : MonoBehaviour
 {
     public float MinDelay = 10.0f;
     public float MaxDelay = 20.0f;
+    public float FirstDelay = 1.0f;
+
+    public String SpawnPointsTag = "spawn";
     public GameObject SpawneableObject;
+
+    public int PoolSize = 10;
 
     private GameObject LastSpawn = null;
     private float NextSpawnTs;
     private List<GameObject> EmptySpawnPoints;
+    private List<GameObject> ItemPool;
 
     // Start is called before the first frame update
     void Start()
     {
-        NextSpawnTs = Random.Range(MinDelay, MaxDelay);
+        NextSpawnTs = FirstDelay;
 
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag(SpawnPointsTag);
         EmptySpawnPoints = new List<GameObject>(spawnPoints);
+
+        ItemPool = new List<GameObject>(PoolSize);
+        for (int i = 0; i < PoolSize; ++i)
+        {
+            GameObject item = Instantiate(SpawneableObject);
+            item.GetComponent<Pickable>().Spawner = this;
+            item.transform.parent = transform;
+            item.transform.localPosition = Vector3.zero;
+            item.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            item.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            item.GetComponent<Rigidbody>().Sleep();
+            ;
+            item.SetActive(false);
+            ItemPool.Add(item);
+        }
     }
 
     // Update is called once per frame
@@ -30,7 +51,7 @@ public class ItemSpawnController : MonoBehaviour
 
         if (NextSpawnTs <= 0.0f)
         {
-            if (EmptySpawnPoints.Count > 0)
+            if (EmptySpawnPoints.Count > 0 && ItemPool.Count > 0)
             {
                 SpawnObject(SelectNextSpawnPoint());
                 NextSpawnTs = Random.Range(MinDelay, MaxDelay);
@@ -42,7 +63,23 @@ public class ItemSpawnController : MonoBehaviour
     {
         EmptySpawnPoints.Add(from);
 
-        if (EmptySpawnPoints.Count == 1)
+        if (EmptySpawnPoints.Count == 1 && ItemPool.Count > 0)
+        {
+            NextSpawnTs = Random.Range(MinDelay, MaxDelay);
+        }
+    }
+
+    public void ItemDestroyed(GameObject item)
+    {
+        item.SetActive(false);
+        item.transform.parent = transform;
+
+        item.transform.localPosition = Vector3.zero;
+        item.transform.rotation = Quaternion.identity;
+
+        ItemPool.Add(item);
+
+        if (ItemPool.Count == 1 && EmptySpawnPoints.Count > 0)
         {
             NextSpawnTs = Random.Range(MinDelay, MaxDelay);
         }
@@ -64,7 +101,23 @@ public class ItemSpawnController : MonoBehaviour
 
     private void SpawnObject(GameObject where)
     {
-        GameObject spawned = Instantiate(SpawneableObject, where.transform.position, Quaternion.identity);
-        spawned.GetComponent<PickupTrigger>().SpawnedFrom = where;
+        GameObject spawned = new GameObject();
+        spawned.tag = "Pickup";
+
+        PickupTrigger trigger = spawned.AddComponent<PickupTrigger>();
+        trigger.SpawnedFrom = where;
+
+        GameObject item = ItemPool[0];
+        ItemPool.RemoveAt(0);
+
+        item.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        item.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        item.GetComponent<Rigidbody>().Sleep();
+
+        trigger.SetPickupObject(item);
+        trigger.transform.position = where.transform.position;
+        item.transform.SetParent(trigger.transform, false);
+
+        item.SetActive(true);
     }
 }

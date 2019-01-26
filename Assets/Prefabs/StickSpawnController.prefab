@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8136320843974161485}
   - component: {fileID: 8844024396640447837}
   m_Layer: 0
-  m_Name: SpawnController
+  m_Name: StickSpawnController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,4 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDelay: 10
   MaxDelay: 20
-  SpawneableObject: {fileID: 0}
+  SpawneableObject: {fileID: 7174600798666109765}
+  PoolSize: 10
