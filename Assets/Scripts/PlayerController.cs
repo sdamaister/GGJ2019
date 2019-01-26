@@ -15,17 +15,19 @@ public class PlayerController : MonoBehaviour
         eStunned,
     }
 
-    public int   mPlayerIdX     = 0;
-    public float mSpeed         = 150.0f;
-    public float MinSpeedFactor = 0.4f;
-    public float MaxSpeedFactor = 1.0f;
-    public float mAttatchOffset = 0.5f;
-    public float mDashForce     = 10.0f;
+    public int   mPlayerIdX       = 0;
+    public float mSpeed           = 150.0f;
+    public float MinSpeedFactor   = 0.4f;
+    public float MaxSpeedFactor   = 1.0f;
+    public float mAttatchOffset   = 0.5f;
+    public float mDashForce       = 100.0f;
+    public float mDashingFriction = 0.1f;
+    public float mDashSpeedFinish = 5.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
     private InputManager mInputManager;
-    private bool enableMovement = true;
+    private PhysicMaterial mPhyMat;
 
     private Pickable mCurrentPickup;
 
@@ -73,32 +75,23 @@ public class PlayerController : MonoBehaviour
         mInputManager = GetComponent<InputManager>();
         Assert.IsNotNull(mInputManager);
 
+        mPhyMat = GetComponent<Collider>().material;
+        Assert.IsNotNull(mPhyMat);
+
         playerLife.OnDie += OnPlayerDied;
     }
 
     private void Update()
     {
-        if (enableMovement)
-        {
-            Vector3 lLookVector = mInputManager.GetLookVector();
-            if (lLookVector.magnitude > 0.0f)
-            {
-                transform.forward = lLookVector;
-            }
-
-            if (mInputManager.IsRightTriggerPressed() && mCurrentPickup != null)
-            {
-                mCurrentPickup.OnAction(this);
-            }
-        }
-
         switch(mCurrentState)
         {
             case EPlayerState.eIdle:
+                OnIdle();
                 break;
             case EPlayerState.eAttacking:
                 break;
             case EPlayerState.eDashing:
+                OnDashing();
                 break;
             case EPlayerState.eStunned:
                 break;
@@ -110,7 +103,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (enableMovement)
+        if (mCurrentState == EPlayerState.eIdle)
         {
             Vector3 lMovementVec = mInputManager.GetMoveVector();
             mRigidbody.velocity = (lMovementVec.magnitude > 0.0f) ? (lMovementVec * GetSpeed() * Time.deltaTime) :  Vector3.zero;
@@ -131,7 +124,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerDied()
     {
-        enableMovement = false;
         DropHeldObject();
     }
 
@@ -160,6 +152,33 @@ public class PlayerController : MonoBehaviour
     private void Dash()
     {
         Vector3 lMoveDir = mRigidbody.velocity.normalized;
-        mRigidbody.AddForce(lMoveDir * mDashForce);
+        mRigidbody.AddForce(transform.forward * mDashForce, ForceMode.Impulse);
+        mPhyMat.dynamicFriction = mDashingFriction;
+
+        mCurrentState = EPlayerState.eDashing;
+    }
+
+    // States
+    private void OnIdle()
+    {
+        Vector3 lLookVector = mInputManager.GetLookVector();
+        if (lLookVector.magnitude > 0.0f)
+        {
+            transform.forward = lLookVector;
+        }
+
+        if (mInputManager.IsRightTriggerPressed() && mCurrentPickup != null)
+        {
+            mCurrentPickup.OnAction(this);
+        }
+    }
+
+    private void OnDashing()
+    {
+        if (mRigidbody.velocity.magnitude <= mDashSpeedFinish)
+        {
+            mPhyMat.dynamicFriction = 0.0f;
+            mCurrentState = EPlayerState.eIdle;
+        }
     }
 }
