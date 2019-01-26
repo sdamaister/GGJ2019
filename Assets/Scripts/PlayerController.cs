@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
         mCurrentPickup = pickup.GetComponent<Pickable>();
         Assert.IsNotNull(mCurrentPickup, "Object " + pickup.name + " doesn't have a 'Pickable' component");
 
+        mAnimator.SetBool("holding", true);
+
         mCurrentPickup.OnPickedUp(this);
     }
 
@@ -62,6 +64,8 @@ public class PlayerController : MonoBehaviour
         {
             mCurrentPickup.transform.parent = null;
             mCurrentPickup.OnDropped(this);
+
+            mAnimator.SetBool("holding", false);
 
             mCurrentPickup = null;
         }

@@ -253,8 +253,8 @@ ModelImporter:
     - serializedVersion: 16
       name: hold
       takeName: hold
-      firstFrame: 140
-      lastFrame: 200
+      firstFrame: 160
+      lastFrame: 170
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
