@@ -4,6 +4,7 @@ using UnityEngine.Assertions;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerLifeController))]
+[RequireComponent(typeof(InputManager))]
 public class PlayerController : MonoBehaviour
 {
     public float mSpeed = 1.0f;
@@ -13,12 +14,10 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
+    private InputManager mInputManager;
     private bool enableMovement = true;
 
     private GameObject mCurrentPickup;
-
-    private float mJoystickMovementEpsilon = 0.1f;
-    private float mJoystickLookEpsilon     = 0.05f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,34 +28,31 @@ public class PlayerController : MonoBehaviour
         playerLife = GetComponent<PlayerLifeController>();
         Assert.IsNotNull(playerLife);
 
+        mInputManager = GetComponent<InputManager>();
+        Assert.IsNotNull(mInputManager);
+
         playerLife.OnDie += OnPlayerDied;
     }
 
     private void Update()
     {
-        float lLookHorizontal = Input.GetAxis("Mouse X");
-        float lLookVertical   = Input.GetAxis("Mouse Y");
-
-        if (enableMovement && ( ((Mathf.Abs(lLookHorizontal) >= mJoystickLookEpsilon)) || (Mathf.Abs(lLookVertical) >= mJoystickLookEpsilon)))
+        if (enableMovement)
         {
-            transform.forward = Vector3.Normalize(new Vector3(lLookHorizontal, 0.0f, lLookVertical));
+            Vector3 lLookVector = mInputManager.GetLookVector();
+            if (lLookVector.magnitude > 0.0f)
+            {
+                transform.forward = lLookVector;
+            }
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float lMoveHorizontal = Input.GetAxis("Horizontal");
-        float lMoveVertical = Input.GetAxis("Vertical");
-
-        if (enableMovement && ((Mathf.Abs(lMoveHorizontal) >= mJoystickMovementEpsilon) || (Mathf.Abs(lMoveVertical) >= mJoystickMovementEpsilon)))
+        if (enableMovement)
         {
-            mRigidbody.velocity = Vector3.Normalize(new Vector3(lMoveHorizontal, 0.0f, lMoveVertical)) *
-                                  GetSpeed() * Time.deltaTime;
-        }
-        else
-        {
-            mRigidbody.velocity = Vector3.zero;
+            Vector3 lMovementVec = mInputManager.GetMoveVector();
+            mRigidbody.velocity = (lMovementVec.magnitude > 0.0f) ? (lMovementVec * GetSpeed() * Time.deltaTime) :  Vector3.zero;
         }
     }
     
