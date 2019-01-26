@@ -28,4 +28,8 @@ public class PlayerLifeController : MonoBehaviour
             }
         }
     }
+
+    public float GetLifePercent () {
+        return Life/100f;
+    }
 }
