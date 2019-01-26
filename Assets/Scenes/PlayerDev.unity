@@ -895,7 +895,7 @@ PrefabInstance:
         type: 3}
       propertyPath: SpawneableObject
       value: 
-      objectReference: {fileID: 5324893643886195491, guid: 80d35a946421d404397c21a430215325,
+      objectReference: {fileID: 3213416400358864829, guid: fb09eb41a5029d843a3b4c95f33384a1,
         type: 3}
     - target: {fileID: 8844024396640447837, guid: 35ab6949e04e39a4ebf1bf7f7591e8ed,
         type: 3}
@@ -906,6 +906,11 @@ PrefabInstance:
         type: 3}
       propertyPath: MaxDelay
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844024396640447837, guid: 35ab6949e04e39a4ebf1bf7f7591e8ed,
+        type: 3}
+      propertyPath: PoolSize
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35ab6949e04e39a4ebf1bf7f7591e8ed, type: 3}

@@ -29,8 +29,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3213416400358864829}
-  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -2.238, y: 0.449, z: 0}
+  m_LocalRotation: {x: 0.000000003026798, y: 0.96527076, z: -0.0000000074505797, w: -0.26125175}
+  m_LocalPosition: {x: -1.3521787, y: -0.000000006913298, z: -0.43174762}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -90,7 +90,7 @@ SphereCollider:
   m_GameObject: {fileID: 3213416400358864829}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2.24
   m_Center: {x: 0, y: 0, z: 0}
@@ -136,3 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fe6471c202f864aabdb7e26c440b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Spawner: {fileID: 0}
+  DropDistance: 1.1
+  DropForce: 40

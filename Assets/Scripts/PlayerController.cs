@@ -144,8 +144,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Pickup" && mCurrentPickup == null && mCurrentState != EPlayerState.eStunned)
         {
-            GameObject pickedGameObject = Instantiate(other.GetComponent<PickupTrigger>().mPickupObject, transform);
-            PickObject(pickedGameObject);
+            PickObject(other.GetComponent<PickupTrigger>().mPickupObject);
 
             Destroy(other.gameObject);
         }

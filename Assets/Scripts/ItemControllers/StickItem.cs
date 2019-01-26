@@ -9,7 +9,9 @@ public class StickItem : Pickable
 
     public override void OnPickedUp(PlayerController trigger)
     {
-        GetComponent<Collider>().isTrigger = true;
+        Collider collider = GetComponent<Collider>();
+        collider.enabled = true;
+        collider.isTrigger = true;
         GetComponent<Rigidbody>().isKinematic = true;
 
         thrower = trigger.gameObject;
@@ -42,7 +44,7 @@ public class StickItem : Pickable
                 collision.gameObject.GetComponent<PlayerController>().Stun(GetComponent<Rigidbody>().velocity.normalized);
             }
 
-            Destroy(gameObject);
+            DoDestroy();
         }
     }
 }
