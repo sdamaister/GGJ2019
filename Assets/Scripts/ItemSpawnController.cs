@@ -33,14 +33,19 @@ public class ItemSpawnController : MonoBehaviour
             if (EmptySpawnPoints.Count > 0)
             {
                 SpawnObject(SelectNextSpawnPoint());
+                NextSpawnTs = Random.Range(MinDelay, MaxDelay);
             }
-            NextSpawnTs = Random.Range(MinDelay, MaxDelay);
         }
     }
 
     public void ItemPickedUp(GameObject from)
     {
         EmptySpawnPoints.Add(from);
+
+        if (EmptySpawnPoints.Count == 1)
+        {
+            NextSpawnTs = Random.Range(MinDelay, MaxDelay);
+        }
     }
 
     private GameObject SelectNextSpawnPoint()
