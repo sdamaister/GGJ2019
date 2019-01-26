@@ -222,6 +222,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6116441996165956587}
+  - component: {fileID: 4123728989641102640}
+  - component: {fileID: 6539987267152330699}
   m_Layer: 0
   m_Name: TentTempModel
   m_TagString: Untagged
@@ -245,6 +247,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -67.925, z: 0}
+--- !u!114 &4123728989641102640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6116441996165956584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558a6fbac7ad1b4087ac878503804e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mBonfireIdx: 0
+--- !u!65 &6539987267152330699
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6116441996165956584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8411908097808141536
 GameObject:
   m_ObjectHideFlags: 0
