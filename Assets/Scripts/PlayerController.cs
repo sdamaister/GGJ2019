@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 using UnityEngine;
@@ -40,6 +40,11 @@ public class PlayerController : MonoBehaviour
         mCurrentPickup.OnDropped(this);
 
         mCurrentPickup = null;
+    }
+
+    public void Stun()
+    {
+        DropHeldObject();
     }
 
     // Start is called before the first frame update
