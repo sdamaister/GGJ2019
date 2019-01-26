@@ -182,6 +182,8 @@ MonoBehaviour:
   mDashForce: 10
   mDashingFriction: 0.1
   mDashSpeedFinish: 5
+  mStunVerticalOffset: 0.5
+  mStunOffsetTime: 1
 --- !u!114 &222414650
 MonoBehaviour:
   m_ObjectHideFlags: 0

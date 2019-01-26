@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private InputManager mInputManager;
     private PhysicMaterial mPhyMat;
     private Animator mAnimator;
+    private Collider mCollider;
 
     private GameObject attackBox;
     private float cooldownRemainingTime = 0.0f;
@@ -78,7 +79,10 @@ public class PlayerController : MonoBehaviour
         mInputManager = GetComponent<InputManager>();
         Assert.IsNotNull(mInputManager);
 
-        mPhyMat = GetComponent<Collider>().material;
+        mCollider = GetComponent<Collider>();
+        Assert.IsNotNull(mCollider);
+
+        mPhyMat = mCollider.material;
         Assert.IsNotNull(mPhyMat);
 
         mAnimator = GetComponent<Animator>();
@@ -206,6 +210,7 @@ public class PlayerController : MonoBehaviour
         stunIndicator.SetActive(true);
 
         mAnimator.SetBool("stunned", true);
+        mAnimator.SetBool("walking", false);
     }
 
     private void Die()

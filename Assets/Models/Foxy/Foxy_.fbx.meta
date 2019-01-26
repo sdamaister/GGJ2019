@@ -197,8 +197,8 @@ ModelImporter:
     - serializedVersion: 16
       name: stunt
       takeName: stunt
-      firstFrame: 60
-      lastFrame: 110
+      firstFrame: 70
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
