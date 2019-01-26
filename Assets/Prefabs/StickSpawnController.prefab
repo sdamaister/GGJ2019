@@ -45,5 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDelay: 10
   MaxDelay: 20
-  SpawneableObject: {fileID: 7174600798666109765}
+  FirstDelay: 1
+  SpawnPointsTag: spawn
+  SpawneableObject: {fileID: 3213416400358864829, guid: fb09eb41a5029d843a3b4c95f33384a1,
+    type: 3}
   PoolSize: 10

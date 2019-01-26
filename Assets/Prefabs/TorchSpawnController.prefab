@@ -46,6 +46,7 @@ MonoBehaviour:
   MinDelay: 0
   MaxDelay: 0
   FirstDelay: 0
+  SpawnPointsTag: TorchSpawn
   SpawneableObject: {fileID: 3213416400358864829, guid: 3b7d04bc353540d4191c168789b51c3b,
     type: 3}
   PoolSize: 1
