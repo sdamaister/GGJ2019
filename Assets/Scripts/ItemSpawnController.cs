@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +10,17 @@ public class ItemSpawnController : MonoBehaviour
     public float MaxDelay = 20.0f;
     public GameObject SpawneableObject;
 
-    private GameObject[] SpawnPoints;
     private GameObject LastSpawn = null;
     private float NextSpawnTs;
+    private List<GameObject> EmptySpawnPoints;
 
     // Start is called before the first frame update
     void Start()
     {
         NextSpawnTs = Random.Range(MinDelay, MaxDelay);
 
-        SpawnPoints = GameObject.FindGameObjectsWithTag("spawn");
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
+        EmptySpawnPoints = new List<GameObject>(spawnPoints);
     }
 
     // Update is called once per frame
@@ -29,9 +30,17 @@ public class ItemSpawnController : MonoBehaviour
 
         if (NextSpawnTs <= 0.0f)
         {
-            SpawnObject(SelectNextSpawnPoint());
+            if (EmptySpawnPoints.Count > 0)
+            {
+                SpawnObject(SelectNextSpawnPoint());
+            }
             NextSpawnTs = Random.Range(MinDelay, MaxDelay);
         }
+    }
+
+    public void ItemPickedUp(GameObject from)
+    {
+        EmptySpawnPoints.Add(from);
     }
 
     private GameObject SelectNextSpawnPoint()
@@ -39,16 +48,18 @@ public class ItemSpawnController : MonoBehaviour
         GameObject selected = null;
         do
         {
-            int which = Random.Range(0, SpawnPoints.Length);
-            selected = SpawnPoints[which];
-        } while (selected == LastSpawn && (SpawnPoints.Length > 1) );
+            int which = Random.Range(0, EmptySpawnPoints.Count);
+            selected = EmptySpawnPoints[which];
+        } while (selected == LastSpawn && (EmptySpawnPoints.Count > 1) );
 
+        EmptySpawnPoints.Remove(selected);
         LastSpawn = selected;
         return selected;
     }
 
     private void SpawnObject(GameObject where)
     {
-        Instantiate(SpawneableObject, where.transform.position, Quaternion.identity);
+        GameObject spawned = Instantiate(SpawneableObject, where.transform.position, Quaternion.identity);
+        spawned.GetComponent<PickupTrigger>().SpawnedFrom = where;
     }
 }

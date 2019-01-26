@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PickupTrigger : MonoBehaviour
 {
+    public GameObject SpawnedFrom;
     public GameObject mPickupObject;
-    
+
+    private void OnDestroy()
+    {
+        FindObjectOfType<ItemSpawnController>().ItemPickedUp(SpawnedFrom);
+    }
 }
