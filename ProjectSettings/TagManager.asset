@@ -6,6 +6,7 @@ TagManager:
   tags:
   - spawn
   - Pickup
+  - Torch
   layers:
   - Default
   - TransparentFX

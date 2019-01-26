@@ -9,7 +9,7 @@ public class PickupTrigger : MonoBehaviour
 
     private void OnDestroy()
     {
-        if ((SpawnedFrom != null))
+        if (SpawnedFrom != null)
         {
             FindObjectOfType<ItemSpawnController>().ItemPickedUp(SpawnedFrom);
         }
