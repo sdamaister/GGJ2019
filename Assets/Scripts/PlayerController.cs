@@ -142,15 +142,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Attack")
+        {
+            Stun(other.transform.forward);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
         if (other.tag == "Pickup" && mCurrentPickup == null && mCurrentState != EPlayerState.eStunned)
         {
             PickObject(other.GetComponent<PickupTrigger>().mPickupObject);
 
             Destroy(other.gameObject);
-        }
-        else if (other.tag == "Attack")
-        {
-            Stun(other.transform.forward);
         }
     }
 
