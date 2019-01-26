@@ -2,7 +2,7 @@
 
 public class StickItem : Pickable
 {
-    public float DropDistance = 1.0f;
+    public float DropDistance = 0.2f;
     public float DropSpeed = 10.0f;
 
     private GameObject thrower;
@@ -21,7 +21,10 @@ public class StickItem : Pickable
     {
         trigger.DropHeldObject();
 
-        transform.position = transform.position + (trigger.transform.forward * DropDistance);
+        float y = transform.position.y;
+        Vector3 newPosition = trigger.transform.position + (trigger.transform.forward * DropDistance);
+        newPosition.y = y;
+        transform.position = newPosition;
 
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.velocity = trigger.transform.forward * DropSpeed;
