@@ -7,7 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(InputManager))]
 public class PlayerController : MonoBehaviour
 {
-    public float mSpeed = 1.0f;
+    public int   mPlayerIdX     = 0;
+    public float mSpeed         = 1.0f;
     public float MinSpeedFactor = 0.4f;
     public float MaxSpeedFactor = 1.0f;
     public float mAttatchOffset = 0.5f;
@@ -74,6 +75,11 @@ public class PlayerController : MonoBehaviour
     {
         enableMovement = false;
         // TODO: Throw held objects
+    }
+
+    public Pickable GetCurrentPickup()
+    {
+        return mCurrentPickup;
     }
 
     private void PickObject(GameObject pickup)
