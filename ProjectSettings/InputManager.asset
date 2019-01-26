@@ -6,7 +6,7 @@ InputManager:
   serializedVersion: 2
   m_Axes:
   - serializedVersion: 3
-    m_Name: Horizontal 0
+    m_Name: Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: left
@@ -22,7 +22,7 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
-    m_Name: Vertical 0
+    m_Name: Vertical
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: down
@@ -548,7 +548,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 2
-    joyNum: 4
+    joyNum: 3
   - serializedVersion: 3
     m_Name: Dash 0
     descriptiveName: 
@@ -578,7 +578,7 @@ InputManager:
     sensitivity: 1
     snap: 0
     invert: 0
-    type: 2
+    type: 0
     axis: 2
     joyNum: 2
   - serializedVersion: 3
@@ -594,7 +594,7 @@ InputManager:
     sensitivity: 1
     snap: 0
     invert: 0
-    type: 2
+    type: 0
     axis: 2
     joyNum: 3
   - serializedVersion: 3
@@ -610,6 +610,6 @@ InputManager:
     sensitivity: 1
     snap: 0
     invert: 0
-    type: 2
+    type: 0
     axis: 2
     joyNum: 4

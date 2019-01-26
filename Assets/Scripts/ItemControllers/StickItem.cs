@@ -35,11 +35,14 @@ public class StickItem : Pickable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && collision.gameObject != thrower)
+        if (collision.gameObject != thrower)
         {
-            collision.gameObject.GetComponent<PlayerController>().Stun();
-        }
+            if (collision.gameObject.tag == "Player")
+            {
+                collision.gameObject.GetComponent<PlayerController>().Stun(GetComponent<Rigidbody>().velocity.normalized);
+            }
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

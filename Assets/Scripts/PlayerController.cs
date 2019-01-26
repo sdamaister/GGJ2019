@@ -21,10 +21,9 @@ public class PlayerController : MonoBehaviour
     public float MinSpeedFactor = 0.4f;
     public float MaxSpeedFactor = 1.0f;
     public float mAttatchOffset = 0.5f;
-    public float mDashForce     = 10.0f;
     public float AttackCooldownTime = 2.0f;
     public float StunCooldownTime = 3.0f;
-    public float mDashForce       = 100.0f;
+    public float mDashForce       = 10.0f;
     public float mDashingFriction = 0.1f;
     public float mDashSpeedFinish = 5.0f;
 
@@ -65,12 +64,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Stun()
-    {
-        DropHeldObject();
-        cooldownRemainingTime = StunCooldownTime;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -86,7 +79,7 @@ public class PlayerController : MonoBehaviour
         mPhyMat = GetComponent<Collider>().material;
         Assert.IsNotNull(mPhyMat);
 
-        playerLife.OnDie += OnPlayerDied;
+        playerLife.OnDie += Die;
 
         attackBox = transform.Find("AttackBox").gameObject;
         attackBox.SetActive(false);
@@ -142,28 +135,14 @@ public class PlayerController : MonoBehaviour
         return speedFactor * mSpeed;
     }
 
-    private void OnPlayerDied()
-    {
-        mCurrentState = EPlayerState.eDead;
-        DropHeldObject();
-    }
-
     public Pickable GetCurrentPickup()
     {
         return mCurrentPickup;
     }
 
-    private void Attack()
-    {
-        mCurrentState = EPlayerState.eAttacking;
-
-        attackBox.SetActive(true);
-        cooldownRemainingTime = AttackCooldownTime;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Pickup" && mCurrentPickup == null)
+        if (other.tag == "Pickup" && mCurrentPickup == null && mCurrentState != EPlayerState.eStunned)
         {
             GameObject pickedGameObject = Instantiate(other.GetComponent<PickupTrigger>().mPickupObject, transform);
             PickObject(pickedGameObject);
@@ -172,7 +151,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag == "Attack")
         {
-            Stun();
+            Stun(other.transform.forward);
         }
     }
 
@@ -180,6 +159,23 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + (transform.forward * 3.0f));
+    }
+
+    // State enter
+    private void Idle()
+    {
+        mPhyMat.dynamicFriction = 0;
+        mCurrentState = EPlayerState.eIdle;
+    }
+
+    private void Attack()
+    {
+        mCurrentState = EPlayerState.eAttacking;
+
+        attackBox.SetActive(true);
+        cooldownRemainingTime = AttackCooldownTime;
+
+        mRigidbody.velocity = Vector3.zero;
     }
 
     private void Dash()
@@ -191,13 +187,33 @@ public class PlayerController : MonoBehaviour
         mCurrentState = EPlayerState.eDashing;
     }
 
+    public void Stun(Vector3 direction)
+    {
+        DropHeldObject();
+        mCurrentState = EPlayerState.eStunned;
+        cooldownRemainingTime = StunCooldownTime;
+
+        mRigidbody.AddForce(direction * 5.0f, ForceMode.Impulse);
+        mPhyMat.dynamicFriction = 0.5f;
+    }
+
+    private void Die()
+    {
+        mCurrentState = EPlayerState.eDead;
+        DropHeldObject();
+
+        mPhyMat.dynamicFriction = 1.0f;
+        mPhyMat.staticFriction = 1.0f;
+
+        enabled = false;
+    }
+
     // States
     private void OnDashing()
     {
         if (mRigidbody.velocity.magnitude <= mDashSpeedFinish)
         {
-            mPhyMat.dynamicFriction = 0.0f;
-            mCurrentState = EPlayerState.eIdle;
+            Idle();
         }
     }
 
@@ -227,7 +243,7 @@ public class PlayerController : MonoBehaviour
         if (cooldownRemainingTime <= 0.0f)
         {
             attackBox.SetActive(false);
-            mCurrentState = EPlayerState.eIdle;
+            Idle();
         }
     }
 
@@ -235,7 +251,7 @@ public class PlayerController : MonoBehaviour
     {
         if (cooldownRemainingTime <= 0)
         {
-            mCurrentState = EPlayerState.eIdle;
+            Idle();
         }
     }
 }
