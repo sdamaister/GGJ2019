@@ -98,27 +98,12 @@ public class PlayerController : MonoBehaviour
     private void OnPlayerDied()
     {
         enableMovement = false;
-        // TODO: Throw held objects
+        DropHeldObject();
     }
 
     public Pickable GetCurrentPickup()
     {
         return mCurrentPickup;
-    }
-
-    private void PickObject(GameObject pickup)
-    {
-        pickup.transform.parent = transform;
-        pickup.transform.localPosition = transform.forward * mAttatchOffset;
-        pickup.transform.rotation      = transform.rotation;
-        pickup.GetComponent<Collider>().isTrigger = true;
-        pickup.GetComponent<Rigidbody>().isKinematic = true;
-
-        mCurrentPickup = pickup.GetComponent<Pickable>();
-        Assert.IsNotNull(mCurrentPickup, "Object " + pickup.name + " doesn't have a 'Pickable' component");
-
-        mCurrentPickup.OnPickedUp(this);
-        DropHeldObject();
     }
 
     private void OnTriggerEnter(Collider other)
