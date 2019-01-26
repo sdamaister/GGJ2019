@@ -2,13 +2,15 @@
 
 public class StickItem : Pickable
 {
-    public float DropDistance = 1.0f;
+    public float DropDistance = 0.2f;
     public float DropSpeed = 10.0f;
 
     private GameObject thrower;
 
     public override void OnPickedUp(PlayerController trigger)
     {
+        base.OnPickedUp(trigger);
+
         Collider collider = GetComponent<Collider>();
         collider.enabled = true;
         collider.isTrigger = true;
@@ -19,9 +21,14 @@ public class StickItem : Pickable
 
     public override void OnAction(PlayerController trigger)
     {
+        base.OnAction(trigger);
+
         trigger.DropHeldObject();
 
-        transform.position = transform.position + (trigger.transform.forward * DropDistance);
+        float y = transform.position.y;
+        Vector3 newPosition = trigger.transform.position + (trigger.transform.forward * DropDistance);
+        newPosition.y = y;
+        transform.position = newPosition;
 
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.velocity = trigger.transform.forward * DropSpeed;
@@ -31,6 +38,8 @@ public class StickItem : Pickable
 
     public override void OnDropped(PlayerController trigger)
     {
+        base.OnDropped(trigger);
+
         GetComponent<Collider>().isTrigger = false;
         GetComponent<Rigidbody>().isKinematic = false;
     }
