@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
         eAttacking,
         eDashing,
         eStunned,
+        eDead
     }
 
     public int   mPlayerIdX     = 0;
@@ -21,11 +22,13 @@ public class PlayerController : MonoBehaviour
     public float MaxSpeedFactor = 1.0f;
     public float mAttatchOffset = 0.5f;
     public float mDashForce     = 10.0f;
+    public float AttackTime = 2.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
     private InputManager mInputManager;
-    private bool enableMovement = true;
+    private GameObject attackBox;
+    private float attackRemainingTime = 0.0f;
 
     private Pickable mCurrentPickup;
 
@@ -74,33 +77,26 @@ public class PlayerController : MonoBehaviour
         Assert.IsNotNull(mInputManager);
 
         playerLife.OnDie += OnPlayerDied;
+
+        attackBox = transform.Find("AttackBox").gameObject;
+        attackBox.SetActive(false);
     }
 
     private void Update()
     {
-        if (enableMovement)
-        {
-            Vector3 lLookVector = mInputManager.GetLookVector();
-            if (lLookVector.magnitude > 0.0f)
-            {
-                transform.forward = lLookVector;
-            }
-
-            if (mInputManager.IsRightTriggerPressed() && mCurrentPickup != null)
-            {
-                mCurrentPickup.OnAction(this);
-            }
-        }
-
         switch(mCurrentState)
         {
             case EPlayerState.eIdle:
+                OnIdle();
                 break;
             case EPlayerState.eAttacking:
+                OnAttack();
                 break;
             case EPlayerState.eDashing:
                 break;
             case EPlayerState.eStunned:
+                break;
+            case EPlayerState.eDead:
                 break;
             default:
                 break;
@@ -110,7 +106,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (enableMovement)
+        if (mCurrentState == EPlayerState.eIdle)
         {
             Vector3 lMovementVec = mInputManager.GetMoveVector();
             mRigidbody.velocity = (lMovementVec.magnitude > 0.0f) ? (lMovementVec * GetSpeed() * Time.deltaTime) :  Vector3.zero;
@@ -131,13 +127,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerDied()
     {
-        enableMovement = false;
+        mCurrentState = EPlayerState.eDead;
         DropHeldObject();
     }
 
     public Pickable GetCurrentPickup()
     {
         return mCurrentPickup;
+    }
+
+    private void Attack()
+    {
+        mCurrentState = EPlayerState.eAttacking;
+
+        attackBox.SetActive(true);
+        attackRemainingTime = AttackTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -148,6 +152,10 @@ public class PlayerController : MonoBehaviour
             PickObject(pickedGameObject);
 
             Destroy(other.gameObject);
+        }
+        else if (other.tag == "Attack")
+        {
+            Stun();
         }
     }
 
@@ -161,5 +169,37 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 lMoveDir = mRigidbody.velocity.normalized;
         mRigidbody.AddForce(lMoveDir * mDashForce);
+    }
+
+    private void OnIdle()
+    {
+        Vector3 lLookVector = mInputManager.GetLookVector();
+        if (lLookVector.magnitude > 0.0f)
+        {
+            transform.forward = lLookVector;
+        }
+
+        if (mInputManager.IsRightTriggerPressed())
+        {
+            if (mCurrentPickup != null)
+            {
+                mCurrentPickup.OnAction(this);
+            }
+            else
+            {
+                Attack();
+            }
+        }
+    }
+
+    private void OnAttack()
+    {
+        attackRemainingTime -= Time.deltaTime;
+
+        if (attackRemainingTime <= 0.0f)
+        {
+            attackBox.SetActive(false);
+            mCurrentState = EPlayerState.eIdle;
+        }
     }
 }

@@ -6,8 +6,10 @@ public class InputManager : MonoBehaviour
 {
     private enum EButtonState
     {
-        eUnPressed,
+        eNone,
+        eDown,
         ePressed,
+        eUp
     }
 
     public int  mControllerIdx = 0;
@@ -15,6 +17,7 @@ public class InputManager : MonoBehaviour
 
     private float mJoystickMovementEpsilon = 0.1f;
     private float mJoystickLookEpsilon = 0.05f;
+    private EButtonState rightTriggerState = EButtonState.eNone;
 
     public Vector3 GetMoveVector()
     {
@@ -49,11 +52,37 @@ public class InputManager : MonoBehaviour
 
     public bool IsRightTriggerPressed()
     {
-        return Input.GetAxis("TriggerR " + mControllerIdx) > 0.5f;
+        return rightTriggerState == EButtonState.eDown;
     }
 
     public bool IsDashPressed()
     {
         return Input.GetButtonDown("Dash " + mControllerIdx);
+    }
+
+    private void Update()
+    {
+        if (Input.GetAxis("TriggerR " + mControllerIdx) > 0.5f)
+        {
+            if (rightTriggerState == EButtonState.eNone)
+            {
+                rightTriggerState = EButtonState.eDown;
+            }
+            else if (rightTriggerState == EButtonState.eDown)
+            {
+                rightTriggerState = EButtonState.ePressed;
+            }
+        }
+        else
+        {
+            if (rightTriggerState == EButtonState.ePressed || rightTriggerState == EButtonState.eDown)
+            {
+                rightTriggerState = EButtonState.eUp;
+            }
+            else if (rightTriggerState == EButtonState.eUp)
+            {
+                rightTriggerState = EButtonState.eNone;
+            }
+        }
     }
 }
