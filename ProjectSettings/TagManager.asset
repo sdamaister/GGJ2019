@@ -8,6 +8,7 @@ TagManager:
   - Pickup
   - Torch
   - Attack
+  - TorchSpawn
   layers:
   - Default
   - TransparentFX

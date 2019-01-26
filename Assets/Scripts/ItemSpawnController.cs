@@ -8,6 +8,9 @@ public class ItemSpawnController : MonoBehaviour
 {
     public float MinDelay = 10.0f;
     public float MaxDelay = 20.0f;
+    public float FirstDelay = 1.0f;
+
+    public String SpawnPointsTag = "spawn";
     public GameObject SpawneableObject;
 
     public int PoolSize = 10;
@@ -20,9 +23,9 @@ public class ItemSpawnController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NextSpawnTs = 1.0f;
+        NextSpawnTs = FirstDelay;
 
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag(SpawnPointsTag);
         EmptySpawnPoints = new List<GameObject>(spawnPoints);
 
         ItemPool = new List<GameObject>(PoolSize);
@@ -69,9 +72,10 @@ public class ItemSpawnController : MonoBehaviour
     public void ItemDestroyed(GameObject item)
     {
         item.SetActive(false);
-        item.transform.position = Vector3.zero;
-        item.transform.rotation = Quaternion.identity;
         item.transform.parent = transform;
+
+        item.transform.localPosition = Vector3.zero;
+        item.transform.rotation = Quaternion.identity;
 
         ItemPool.Add(item);
 

@@ -11,6 +11,7 @@ public class TorchItem : Pickable
 
     private float Cooldown = 0.0f;
     private List<GameObject> Players;
+    private bool enableCooldown = false;
 
     public override void OnPickedUp(PlayerController trigger)
     {
@@ -36,6 +37,8 @@ public class TorchItem : Pickable
         GetComponent<Rigidbody>().AddForce(trigger.transform.forward * DropForce);
 
         DecrementLife();
+
+        enableCooldown = true;
     }
 
     void Start()
@@ -45,13 +48,15 @@ public class TorchItem : Pickable
 
     void Update()
     {
-        if (!IsBeingHeld())
+        if (!IsBeingHeld() && enableCooldown)
         {
             Cooldown -= Time.deltaTime;
 
             if (Cooldown <= 0.0f)
             {
-                Destroy(transform.gameObject);
+                enableCooldown = false;
+                DecrementLife();
+                DoDestroy();
             }
         }
     }
@@ -84,7 +89,7 @@ public class TorchItem : Pickable
 
     private void OnDestroy()
     {
-        DecrementLife();
+        
     }
 
     private void DecrementLife()
