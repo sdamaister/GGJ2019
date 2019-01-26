@@ -40,18 +40,12 @@ public class PlayerController : MonoBehaviour
 
     private EPlayerState mCurrentState;
 
-    public void PickObject(GameObject pickup)
+    public void TryPickObject(GameObject pickup)
     {
-        pickup.transform.parent = transform;
-        pickup.transform.localPosition = transform.forward * mAttatchOffset;
-        pickup.transform.rotation = transform.rotation;
-        pickup.GetComponent<Collider>().isTrigger = true;
-        pickup.GetComponent<Rigidbody>().isKinematic = true;
-
-        mCurrentPickup = pickup.GetComponent<Pickable>();
-        Assert.IsNotNull(mCurrentPickup, "Object " + pickup.name + " doesn't have a 'Pickable' component");
-
-        mCurrentPickup.OnPickedUp(this);
+        if (mCurrentPickup == null && mCurrentState != EPlayerState.eStunned)
+        {
+            PickObject(pickup);
+        }
     }
 
     public void DropHeldObject()
@@ -163,6 +157,21 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + (transform.forward * 3.0f));
+    }
+
+    private void PickObject(GameObject pickup)
+    {
+        Transform socket = transform.Find("Foxy_/Bone001/Bone002/Bone006/Bone027/Bone028/Bone029/Hand_R_Fire");
+        pickup.transform.parent = socket;
+        pickup.transform.localPosition = (transform.forward + transform.up) * mAttatchOffset;
+        pickup.transform.rotation = transform.rotation;
+        pickup.GetComponent<Collider>().isTrigger = true;
+        pickup.GetComponent<Rigidbody>().isKinematic = true;
+
+        mCurrentPickup = pickup.GetComponent<Pickable>();
+        Assert.IsNotNull(mCurrentPickup, "Object " + pickup.name + " doesn't have a 'Pickable' component");
+
+        mCurrentPickup.OnPickedUp(this);
     }
 
     // State enter

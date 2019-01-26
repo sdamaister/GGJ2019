@@ -6,7 +6,7 @@ public class TorchItem : Pickable
 {
     private readonly float CooldownTime = 10.0f;
 
-    public float DropDistance = 1.1f;
+    public float DropDistance = 0.2f;
     public float DropForce = 40.0f;
 
     private float Cooldown = 0.0f;
@@ -33,12 +33,27 @@ public class TorchItem : Pickable
         GetComponent<CapsuleCollider>().enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;
 
-        transform.position = transform.position + (trigger.transform.right * DropDistance);
+        float y = transform.position.y;
+        Vector3 newPosition = trigger.transform.position + (trigger.transform.forward * DropDistance);
+        newPosition.y = y;
+        transform.position = newPosition;
         GetComponent<Rigidbody>().AddForce(trigger.transform.forward * DropForce);
 
         DecrementLife();
 
         enableCooldown = true;
+    }
+
+    public override void OnDemoBegin()
+    {
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+        rigidbody.Sleep();
+
+        rigidbody.isKinematic = true;
+
+        GetComponent<CapsuleCollider>().enabled = false;
     }
 
     void Start()
@@ -82,7 +97,7 @@ public class TorchItem : Pickable
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerController>().PickObject(gameObject);
+            collision.gameObject.GetComponent<PlayerController>().TryPickObject(gameObject);
         }
     }
 
