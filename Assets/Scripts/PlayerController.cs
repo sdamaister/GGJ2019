@@ -7,10 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(InputManager))]
 public class PlayerController : MonoBehaviour
 {
-    public float mSpeed = 1.0f;
+    public float mSpeed = 150.0f;
     public float MinSpeedFactor = 0.4f;
     public float MaxSpeedFactor = 1.0f;
     public float mAttatchOffset = 0.5f;
+    public float DropDistance = 1.1f;
+    public float DropForce = 40.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
@@ -18,11 +20,28 @@ public class PlayerController : MonoBehaviour
     private bool enableMovement = true;
 
     private Pickable mCurrentPickup;
-    
+
+    public void PickObject(GameObject pickup)
+    {
+        pickup.transform.parent = transform;
+        pickup.transform.localPosition = transform.forward * mAttatchOffset;
+        pickup.transform.rotation = transform.rotation;
+        pickup.GetComponent<Collider>().isTrigger = true;
+        pickup.GetComponent<Rigidbody>().isKinematic = true;
+
+        mCurrentPickup = pickup.GetComponent<Pickable>();
+        Assert.IsNotNull(mCurrentPickup, "Object " + pickup.name + " doesn't have a 'Pickable' component");
+
+        mCurrentPickup.OnPickedUp(this);
+    }
+
     public void DropHeldObject()
     {
         mCurrentPickup.OnDropped(this);
         mCurrentPickup.transform.parent = null;
+
+        mCurrentPickup.transform.position = transform.position + (transform.right * DropDistance);
+        mCurrentPickup.GetComponent<Rigidbody>().AddForce(transform.forward * DropForce);
         mCurrentPickup = null;
     }
 
@@ -50,6 +69,11 @@ public class PlayerController : MonoBehaviour
             {
                 transform.forward = lLookVector;
             }
+
+            if (mInputManager.IsRightTriggerPressed() && mCurrentPickup != null)
+            {
+                mCurrentPickup.OnAction(this);
+            }
         }
     }
 
@@ -73,21 +97,7 @@ public class PlayerController : MonoBehaviour
     private void OnPlayerDied()
     {
         enableMovement = false;
-        // TODO: Throw held objects
-    }
-
-    private void PickObject(GameObject pickup)
-    {
-        pickup.transform.parent = transform;
-        pickup.transform.localPosition = transform.forward * mAttatchOffset;
-        pickup.transform.rotation      = transform.rotation;
-        pickup.GetComponent<Collider>().isTrigger = true;
-        pickup.GetComponent<Rigidbody>().isKinematic = true;
-
-        mCurrentPickup = pickup.GetComponent<Pickable>();
-        Assert.IsNotNull(mCurrentPickup, "Object " + pickup.name + " doesn't have a 'Pickable' component");
-
-        mCurrentPickup.OnPickedUp(this);
+        DropHeldObject();
     }
 
     private void OnTriggerEnter(Collider other)

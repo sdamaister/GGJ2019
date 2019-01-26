@@ -11,21 +11,25 @@ public class TorchItem : Pickable
 
     public override void OnPickedUp(PlayerController trigger)
     {
-        GetComponent<Collider>().isTrigger = true;
+        GetComponent<SphereCollider>().enabled = true;
+        GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
     }
 
     public override void OnAction(PlayerController trigger)
     {
-        // TODO: Drop object?
+        trigger.DropHeldObject();
     }
 
     public override void OnDropped(PlayerController trigger)
     {
         Cooldown = CooldownTime;
 
-        GetComponent<Collider>().isTrigger = false;
+        GetComponent<SphereCollider>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;
+
+        DecrementLife();
     }
 
     void Start()
@@ -63,14 +67,27 @@ public class TorchItem : Pickable
             Players.Remove(other.gameObject);
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerController>().PickObject(gameObject);
+        }
+    }
+
 
     private void OnDestroy()
+    {
+        DecrementLife();
+    }
+
+    private void DecrementLife()
     {
         foreach (GameObject player in Players)
         {
             player.GetComponent<PlayerLifeController>().DecrementLife = true;
         }
+
+        Players.Clear();
     }
-
-
 }
