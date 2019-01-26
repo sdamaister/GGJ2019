@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 using UnityEngine;
@@ -42,8 +42,9 @@ public class PlayerController : MonoBehaviour
 
     public void PickObject(GameObject pickup)
     {
-        pickup.transform.parent = transform;
-        pickup.transform.localPosition = transform.forward * mAttatchOffset;
+        Transform socket = transform.Find("Foxy_/Bone001/Bone002/Bone006/Bone027/Bone028/Bone029/Hand_R_Fire");
+        pickup.transform.parent = socket;
+        pickup.transform.localPosition = (transform.forward + transform.up) * mAttatchOffset;
         pickup.transform.rotation = transform.rotation;
         pickup.GetComponent<Collider>().isTrigger = true;
         pickup.GetComponent<Rigidbody>().isKinematic = true;
