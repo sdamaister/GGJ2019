@@ -5,10 +5,14 @@ public class StickItem : Pickable
     public float DropDistance = 1.0f;
     public float DropSpeed = 10.0f;
 
+    private GameObject thrower;
+
     public override void OnPickedUp(PlayerController trigger)
     {
         GetComponent<Collider>().isTrigger = true;
         GetComponent<Rigidbody>().isKinematic = true;
+
+        thrower = trigger.gameObject;
     }
 
     public override void OnAction(PlayerController trigger)
@@ -31,7 +35,7 @@ public class StickItem : Pickable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && collision.gameObject != thrower)
         {
             collision.gameObject.GetComponent<PlayerController>().Stun();
         }
