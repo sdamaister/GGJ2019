@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
         eDead
     }
 
+    public GameObject stunIndicator;
     public int   mPlayerIdX     = 0;
     public float mSpeed         = 150.0f;
     public float MinSpeedFactor = 0.4f;
@@ -198,6 +199,7 @@ public class PlayerController : MonoBehaviour
 
         mRigidbody.AddForce(direction * 5.0f, ForceMode.Impulse);
         mPhyMat.dynamicFriction = 0.5f;
+        stunIndicator.SetActive(true);
     }
 
     private void Die()
@@ -255,6 +257,7 @@ public class PlayerController : MonoBehaviour
         if (cooldownRemainingTime <= 0)
         {
             Idle();
+            stunIndicator.SetActive(false);
         }
     }
 }
