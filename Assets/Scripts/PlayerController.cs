@@ -24,10 +24,15 @@ public class PlayerController : MonoBehaviour
     public float mDashForce     = 10.0f;
     public float AttackCooldownTime = 2.0f;
     public float StunCooldownTime = 3.0f;
+    public float mDashForce       = 100.0f;
+    public float mDashingFriction = 0.1f;
+    public float mDashSpeedFinish = 5.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
     private InputManager mInputManager;
+    private PhysicMaterial mPhyMat;
+
     private GameObject attackBox;
     private float cooldownRemainingTime = 0.0f;
 
@@ -78,6 +83,9 @@ public class PlayerController : MonoBehaviour
         mInputManager = GetComponent<InputManager>();
         Assert.IsNotNull(mInputManager);
 
+        mPhyMat = GetComponent<Collider>().material;
+        Assert.IsNotNull(mPhyMat);
+
         playerLife.OnDie += OnPlayerDied;
 
         attackBox = transform.Find("AttackBox").gameObject;
@@ -100,6 +108,7 @@ public class PlayerController : MonoBehaviour
                 OnAttack();
                 break;
             case EPlayerState.eDashing:
+                OnDashing();
                 break;
             case EPlayerState.eStunned:
                 OnStun();
@@ -176,7 +185,20 @@ public class PlayerController : MonoBehaviour
     private void Dash()
     {
         Vector3 lMoveDir = mRigidbody.velocity.normalized;
-        mRigidbody.AddForce(lMoveDir * mDashForce);
+        mRigidbody.AddForce(transform.forward * mDashForce, ForceMode.Impulse);
+        mPhyMat.dynamicFriction = mDashingFriction;
+
+        mCurrentState = EPlayerState.eDashing;
+    }
+
+    // States
+    private void OnDashing()
+    {
+        if (mRigidbody.velocity.magnitude <= mDashSpeedFinish)
+        {
+            mPhyMat.dynamicFriction = 0.0f;
+            mCurrentState = EPlayerState.eIdle;
+        }
     }
 
     private void OnIdle()
