@@ -100,7 +100,17 @@ ModelImporter:
     13700000: Body
     13700002: Clothes
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #25'
+    second: {fileID: 2100000, guid: 4a9faa5e1c395604793f80e4529e26d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #26'
+    second: {fileID: 2100000, guid: 0d87fcfca526e154e9fd4cdec5c4643f, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
