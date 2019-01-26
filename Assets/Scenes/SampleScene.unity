@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964127, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6776,15 +6776,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1962313259, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1077360917}
     - target: {fileID: 3423242633528924846, guid: 12e14792e619a4852818d968d7065e1e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 1962313259, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1077360917}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
 --- !u!4 &1563506427 stripped
@@ -7139,15 +7139,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1962313259, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1098582934}
     - target: {fileID: 3423242633528924846, guid: 12e14792e619a4852818d968d7065e1e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 1962313259, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1098582934}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
 --- !u!4 &1767000161 stripped
@@ -7945,5 +7945,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7716148975349021928, guid: 4864a09c87ee9734888252b3790e624d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4864a09c87ee9734888252b3790e624d, type: 3}

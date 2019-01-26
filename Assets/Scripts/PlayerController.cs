@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private PlayerLifeController playerLife;
     private InputManager mInputManager;
     private PhysicMaterial mPhyMat;
+    private Animator mAnimator;
 
     private GameObject attackBox;
     private float cooldownRemainingTime = 0.0f;
@@ -78,6 +79,9 @@ public class PlayerController : MonoBehaviour
         Assert.IsNotNull(mInputManager);
 
         mPhyMat = GetComponent<Collider>().material;
+        Assert.IsNotNull(mPhyMat);
+
+        mAnimator = GetComponent<Animator>();
         Assert.IsNotNull(mPhyMat);
 
         playerLife.OnDie += Die;
@@ -200,6 +204,8 @@ public class PlayerController : MonoBehaviour
         mRigidbody.AddForce(direction * 5.0f, ForceMode.Impulse);
         mPhyMat.dynamicFriction = 0.5f;
         stunIndicator.SetActive(true);
+
+        mAnimator.SetBool("stunned", true);
     }
 
     private void Die()
@@ -230,6 +236,8 @@ public class PlayerController : MonoBehaviour
             transform.forward = lLookVector;
         }
 
+        mAnimator.SetBool("walking", mRigidbody.velocity.magnitude > 0.1f);
+
         if (mInputManager.IsRightTriggerPressed())
         {
             if (mCurrentPickup != null)
@@ -256,6 +264,7 @@ public class PlayerController : MonoBehaviour
     {
         if (cooldownRemainingTime <= 0)
         {
+            mAnimator.SetBool("stunned", false);
             Idle();
             stunIndicator.SetActive(false);
         }
