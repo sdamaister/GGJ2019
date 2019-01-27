@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964127, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -265,11 +265,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 5909dc31871824901926983a0f56e96a, type: 2}
     - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mPlayerIdX
@@ -286,6 +281,11 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7716148975353315882, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5909dc31871824901926983a0f56e96a, type: 2}
+    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5676,11 +5676,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f9409dd9a401644aca3bb85a88666be5, type: 2}
     - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mPlayerIdX
@@ -5697,6 +5692,11 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7716148975353315882, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9409dd9a401644aca3bb85a88666be5, type: 2}
+    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -6821,11 +6821,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 5538b9d3f6824408d876a5f2949be0e1, type: 2}
     - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mPlayerIdX
@@ -6842,6 +6837,11 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7716148975353315882, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5538b9d3f6824408d876a5f2949be0e1, type: 2}
+    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -7995,6 +7995,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 864007183}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1799716644 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5054973335978040538, guid: d10cfb41d38f8c2459b58c58c8d51c12,
+    type: 3}
+  m_PrefabInstance: {fileID: 2091319946}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29dc79c5f070e942a36a20e93ffb5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1804169742
 GameObject:
   m_ObjectHideFlags: 0
@@ -8039,7 +8051,7 @@ MonoBehaviour:
   - {fileID: 69388388}
   - {fileID: 101636978}
   - {fileID: 1427183569}
-  ui: {fileID: 0}
+  ui: {fileID: 1799716644}
 --- !u!4 &1804169744
 Transform:
   m_ObjectHideFlags: 0
