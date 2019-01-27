@@ -8,6 +8,10 @@ public class PickupTrigger : MonoBehaviour
 
     public float RotationSpeed = 100.0f;
     public float ItemRotation = 26.0f;
+    public float SineSpeed = 5.0f;
+    public float SineAmplitude = 0.1f;
+
+    private float radiants = 0.0f;
 
     void Awake()
     {
@@ -26,6 +30,8 @@ public class PickupTrigger : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime);
+        radiants += (Time.deltaTime * SineSpeed) % 1;
+        mPickupObject.transform.localPosition = Vector3.up * SineAmplitude * Mathf.Sin(radiants);
     }
     
     private void OnDestroy()
