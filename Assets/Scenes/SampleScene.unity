@@ -8016,6 +8016,7 @@ MonoBehaviour:
   - {fileID: 1168122658}
   - {fileID: 197687045}
   - {fileID: 820649250}
+  ui: {fileID: 0}
 --- !u!4 &1804169744
 Transform:
   m_ObjectHideFlags: 0
@@ -8490,16 +8491,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 534669904}
-    - target: {fileID: 5054973335978040543, guid: d10cfb41d38f8c2459b58c58c8d51c12,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5054973334806159724, guid: d10cfb41d38f8c2459b58c58c8d51c12,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d10cfb41d38f8c2459b58c58c8d51c12, type: 3}
 --- !u!1001 &2100715078

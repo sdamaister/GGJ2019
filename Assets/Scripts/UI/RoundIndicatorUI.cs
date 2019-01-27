@@ -28,6 +28,11 @@ public class RoundIndicatorUI : MonoBehaviour
         RoundImage.sprite = Sprite.Create(texture, rect, Vector2.zero);
         RoundImage.preserveAspect = true;
 
+        RectTransform localRectTransform = GetComponent<RectTransform>();
+
+        RoundImage.rectTransform.sizeDelta = new Vector2(localRectTransform.rect.width, localRectTransform.rect.height * 0.5f);
+        RoundImage.rectTransform.anchoredPosition = new Vector2(0.0f, -RoundImage.rectTransform.rect.height * 0.3f);
+
         GeneratePlayerList(winList);
     }
 
@@ -42,7 +47,7 @@ public class RoundIndicatorUI : MonoBehaviour
 
         DotContainer.sizeDelta = new Vector2(totalWidth, DotSize);
 
-        DotContainer.anchoredPosition = new Vector2(0.0f, -(RoundImage.rectTransform.rect.height / RoundImage.sprite.texture.height) * 100.0f);
+        DotContainer.anchoredPosition = new Vector2(0.0f, -((RoundImage.rectTransform.rect.height / RoundImage.sprite.texture.height) * 100.0f) + RoundImage.rectTransform.anchoredPosition.y);
 
         float currentPostion = DotSize / 2;
         for (int i = 0; i < winList.Count; i++)
