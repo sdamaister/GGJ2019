@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
             mCurrentPickup.OnDropped(this);
 
             mAnimator.SetBool("holding", false);
+            mAnimator.SetBool("throwing", false);
 
             mCurrentPickup = null;
         }
@@ -252,6 +253,8 @@ public class PlayerController : MonoBehaviour
             if (mCurrentPickup != null)
             {
                 mCurrentPickup.OnAction(this);
+                mAnimator.SetBool("holding", false);
+                mAnimator.SetBool("throwing", false);
             }
             else
             {
@@ -265,6 +268,8 @@ public class PlayerController : MonoBehaviour
         if (cooldownRemainingTime <= 0.0f)
         {
             attackBox.SetActive(false);
+            mAnimator.SetBool("throwing", false);
+            mAnimator.SetBool("holding", false);
             Idle();
         }
     }
