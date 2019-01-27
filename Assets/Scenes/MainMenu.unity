@@ -6655,11 +6655,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TentTempModel2
       objectReference: {fileID: 0}
-    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
-        type: 3}
-      propertyPath: mBonfireIdx
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6116441996165956587, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6714,6 +6709,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: mBonfireIdx
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
@@ -7927,10 +7927,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1024, y: 768}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -9169,11 +9169,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TentTempModel3
       objectReference: {fileID: 0}
-    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
-        type: 3}
-      propertyPath: mBonfireIdx
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6116441996165956587, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9228,6 +9223,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: mBonfireIdx
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
@@ -12194,11 +12194,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TentTempModel1
       objectReference: {fileID: 0}
-    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
-        type: 3}
-      propertyPath: mBonfireIdx
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6116441996165956587, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12253,6 +12248,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: mBonfireIdx
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
