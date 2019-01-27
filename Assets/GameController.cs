@@ -25,7 +25,6 @@ public class GameController : MonoBehaviour
         mGameStateClock = 0.4f;
 
         results = new List<int>();
-        NewRound();
     }
 
     // Update is called once per frame

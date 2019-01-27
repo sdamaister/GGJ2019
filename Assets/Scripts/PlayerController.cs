@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public GameObject stunIndicator;
-    public GameObject attackIndicator;
 
     // used for start animation
     public GameObject tent;
@@ -161,8 +160,6 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-
-        attackIndicator.SetActive(mCurrentState == EPlayerState.eAttacking);
     }
 
     // Update is called once per frame
@@ -218,7 +215,7 @@ public class PlayerController : MonoBehaviour
 
     private void PickObject(GameObject pickup)
     {
-        Transform socket = transform.Find("Foxy_/Bone001/Bone002/Bone006/Bone027/Bone028/Bone029/Hand_R_Fire");
+        Transform socket = transform.Find("FoxPivot/Foxy_/Bone001/Bone002/Bone006/Bone027/Bone028/Bone029/Hand_R_Fire");
         pickup.transform.parent = socket;
         pickup.transform.localPosition = (transform.forward + transform.up) * mAttatchOffset;
         pickup.transform.rotation = transform.rotation;
