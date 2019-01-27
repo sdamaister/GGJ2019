@@ -106,6 +106,7 @@ public class GameController : MonoBehaviour
                         Debug.Log("Player " + playerId + " wins!");
                         results.Add(playerId);
                         GameEnd();
+                        camera.LookAtPlayer(playerId);
                         // make other players stop
                         /*
                         foreach (PlayerController player in players) {
@@ -150,7 +151,6 @@ public class GameController : MonoBehaviour
                 Debug.Log("Player " + i + " has won 4 rounds, and wins the game!");
                 gameFinished = true;
                 gameWinner = i;
-                camera.LookAtPlayer(i);
                 ui.ShowVictory();
                 break;
             }
@@ -179,6 +179,7 @@ public class GameController : MonoBehaviour
             tent.Reset();
         }
         mGameState = EGameState.eGameReadyAnim; 
+        camera.LookAtPlayer(-1);
         mGameStateClock = 4f;
         ui.ShowRound(mCurrentRound, results);
     }
