@@ -33,7 +33,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene("JoinScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("JoinScene3D", LoadSceneMode.Single);
     }
 
     public void Exit()

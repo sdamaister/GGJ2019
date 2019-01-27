@@ -8,8 +8,11 @@ public class JoinLogic : MonoBehaviour
     public Renderer[] mSelectors;
     public int[] mSelectedControllers;
     public int mMinPlayersToStart = 2;
+    public TutorialMenuUI TutorialUi;
 
     private int mIdx = 0;
+    private bool playersReady = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,11 +23,19 @@ public class JoinLogic : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
+
+        TutorialUi.enabled = false;
+        TutorialUi.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (playersReady)
+        {
+            return;
+        }
+
         CheckPlayer(0);
         CheckPlayer(1);
         CheckPlayer(2);
@@ -32,7 +43,8 @@ public class JoinLogic : MonoBehaviour
 
         if (mIdx >= mMinPlayersToStart && Input.GetButtonDown("Start"))
         {
-            SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+            playersReady = true;
+            TutorialUi.gameObject.SetActive(true);
         }
     }
 

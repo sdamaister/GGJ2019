@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
             players[i].enabled = false;
         }
 
-            GameObject lGameObject = GameObject.FindWithTag("JoinLogic");
+        GameObject lGameObject = GameObject.FindWithTag("JoinLogic");
         if (lGameObject != null)
         {
             JoinLogic logic = lGameObject.GetComponent<JoinLogic>();
@@ -46,12 +46,12 @@ public class GameController : MonoBehaviour
                 {
                     if (logic.mSelectedControllers[i] != -1)
                     {
-                        players[i].enabled = true;
+                        players[i].gameObject.SetActive(true);
                         players[i].SetInputControllerIdx(logic.mSelectedControllers[i]);
                     }
                     else
                     {
-                        players[i].enabled = false;
+                        players[i].gameObject.SetActive(false);
                     }
                 }
             }
@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour
         {
             for (int i = 0; i < players.Count; ++i)
             {
-                players[i].enabled = true;
+                players[i].gameObject.SetActive(true);
             }
         }
 
