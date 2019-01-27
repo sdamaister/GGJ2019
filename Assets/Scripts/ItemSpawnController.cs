@@ -18,6 +18,7 @@ public class ItemSpawnController : MonoBehaviour
 
     private GameObject LastSpawn = null;
     private float NextSpawnTs;
+    private int spawnPointsCount = 0;
     private List<GameObject> EmptySpawnPoints;
     private List<GameObject> ItemPool;
 
@@ -45,9 +46,7 @@ public class ItemSpawnController : MonoBehaviour
             ItemPool.Add(item);
         }
 
-        for (int i = 0; i < InitialAmount; ++i) {
-            SpawnObject(SelectNextSpawnPoint());
-        }
+        spawnPointsCount = spawnPoints.Length;
     }
 
     // Update is called once per frame
@@ -88,6 +87,15 @@ public class ItemSpawnController : MonoBehaviour
         if (ItemPool.Count == 1 && EmptySpawnPoints.Count > 0)
         {
             NextSpawnTs = Random.Range(MinDelay, MaxDelay);
+        }
+    }
+
+    public void SpawnInitial()
+    {
+        int amountToSpawn = Mathf.Max(0, InitialAmount - (spawnPointsCount - EmptySpawnPoints.Count));
+        for (int i = 0; i < amountToSpawn; ++i)
+        {
+            SpawnObject(SelectNextSpawnPoint());
         }
     }
 

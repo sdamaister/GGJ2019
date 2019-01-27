@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     public List<GameObject> thermos;
     public GameOverlayUI ui;
     public CameraDirector camera;
+    public ItemSpawnController StickSpawnController;
+
     private List<int> results;
     private int mCurrentRound = 0;
 
@@ -182,6 +184,8 @@ public class GameController : MonoBehaviour
         camera.LookAtPlayer(-1);
         mGameStateClock = 4f;
         ui.ShowRound(mCurrentRound, results);
+
+        StickSpawnController.SpawnInitial();
     }
     
     private void StartRound() {
