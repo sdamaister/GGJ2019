@@ -15,11 +15,15 @@ public class GameController : MonoBehaviour
     public List<Bonfire> tents;
     public List<GameObject> thermos;
     public GameOverlayUI ui;
+    public CameraDirector camera;
     private List<int> results;
     private int mCurrentRound = 0;
 
     private EGameState mGameState;
     private float mGameStateClock;
+
+    private bool gameFinished = false;
+    private int gameWinner = -1;
     // Start is called before the first frame update
     void Start()
     {
@@ -117,7 +121,7 @@ public class GameController : MonoBehaviour
             case EGameState.eGameCelebration:
                 // zoom in into winning player
                 // make it bounce, or whatever
-                if (clockIsDone) {
+                if (clockIsDone && !gameFinished) {
                     NewRound();
                 }
                 break;
@@ -129,6 +133,26 @@ public class GameController : MonoBehaviour
         mGameStateClock = 3f;
         foreach (GameObject thermo in thermos) {
             thermo.SetActive(false);
+        }
+
+        int[] playerWins = new int[4];
+        playerWins[0] = 0;
+        playerWins[1] = 0;
+        playerWins[2] = 0;
+        playerWins[3] = 0;
+        foreach (int result in results) {
+            if (result >= 0) {
+                playerWins[result]++;
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            if (playerWins[i] >= 3) {
+                Debug.Log("Player " + i + " has won 4 rounds, and wins the game!");
+                gameFinished = true;
+                gameWinner = i;
+                camera.LookAtPlayer(i);
+                break;
+            }
         }
     }
 
@@ -156,6 +180,17 @@ public class GameController : MonoBehaviour
         }
         foreach (GameObject thermo in thermos) {
             thermo.SetActive(true);
+        }
+    }
+
+    private void GameReset() {
+        camera.LookAtPlayer(-1);
+        mCurrentRound = 0;
+        mGameState = EGameState.eGameCelebration;
+        mGameStateClock = 0.0f;
+        results = new List<int>();
+        foreach (GameObject thermo in thermos) {
+            thermo.SetActive(false);
         }
     }
 }
