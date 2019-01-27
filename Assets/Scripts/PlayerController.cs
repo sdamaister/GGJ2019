@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public GameObject stunIndicator;
+    public GameObject attackIndicator;
     public int   mPlayerIdX     = 0;
     public float mSpeed         = 150.0f;
     public float MinSpeedFactor = 0.4f;
@@ -106,6 +107,8 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
+
+        attackIndicator.SetActive(mCurrentState == EPlayerState.eAttacking);
     }
 
     // Update is called once per frame
