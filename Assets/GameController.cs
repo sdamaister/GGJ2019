@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
     public List<PlayerController> players;
     public List<Bonfire> tents;
+    public List<GameObject> thermos;
     public GameOverlayUI ui;
     private List<int> results;
     private int mCurrentRound = 0;
@@ -26,6 +27,10 @@ public class GameController : MonoBehaviour
         mGameStateClock = 0.4f;
 
         results = new List<int>();
+
+        foreach (GameObject thermo in thermos) {
+            thermo.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -54,7 +59,7 @@ public class GameController : MonoBehaviour
                 if (allDead) {
                     Debug.Log("Round ends in draw!");
                     results.Add(-1);
-                    NewRound();
+                    GameEnd();
                 }
 
                 foreach (Bonfire tent in tents) {
@@ -62,9 +67,7 @@ public class GameController : MonoBehaviour
                         int playerId = tent.mBonfireIdx;
                         Debug.Log("Player " + playerId + " wins!");
                         results.Add(playerId);
-                        mGameState = EGameState.eGameCelebration;
-                        mGameStateClock = 3f;
-
+                        GameEnd();
                         // make other players stop
                         /*
                         foreach (PlayerController player in players) {
@@ -87,6 +90,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void GameEnd () {
+        mGameState = EGameState.eGameCelebration;
+        mGameStateClock = 3f;
+        foreach (GameObject thermo in thermos) {
+            thermo.SetActive(false);
+        }
+    }
+
     private void NewRound () {
         mCurrentRound++;
 
@@ -100,7 +111,7 @@ public class GameController : MonoBehaviour
             tent.Reset();
         }
         mGameState = EGameState.eGameReadyAnim; 
-        mGameStateClock = 3f;
+        mGameStateClock = 4f;
         ui.ShowRound(mCurrentRound, results);
     }
     
@@ -108,6 +119,9 @@ public class GameController : MonoBehaviour
         mGameState = EGameState.eGameRunning;
         foreach (PlayerController player in players) {
             player.ReadyToPlay();
+        }
+        foreach (GameObject thermo in thermos) {
+            thermo.SetActive(true);
         }
     }
 }

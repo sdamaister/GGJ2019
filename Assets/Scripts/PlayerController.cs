@@ -413,6 +413,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ReadyToPlay() {
+        transform.rotation = mInitialRotation;
         Idle();
         mInputManager.enabled = true;
         enabled = true;
