@@ -67,6 +67,11 @@ public class PlayerController : MonoBehaviour
     private SoundController soundController;
     private float nextMine = 0.0f;
     
+    public void StopWalking()
+    {
+        mAnimator.SetBool("walking", false);
+    }
+
     public void SetInputControllerIdx(int aIdx)
     {
         mInputManager.mControllerIdx = aIdx;
