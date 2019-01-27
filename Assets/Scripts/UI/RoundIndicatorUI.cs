@@ -7,7 +7,7 @@ public class RoundIndicatorUI : MonoBehaviour
 {
     public Image RoundImage;
 
-    public void ShowRound(int round, int winner)
+    public void ShowRound(int round, List<int> winList)
     {
         string spriteName = "Rounds/round" + round;
         Texture2D texture = (Texture2D)Resources.Load(spriteName);

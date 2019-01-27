@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOverlayUI : MonoBehaviour
@@ -22,10 +23,10 @@ public class GameOverlayUI : MonoBehaviour
     private OverlayStates state = OverlayStates.Hidden;
     private float remainingFade = 0.0f;
 
-    public void ShowRound(int round, int player)
+    public void ShowRound(int round, List<int> winList)
     {
         BeginFade(roundIndicator.gameObject);
-        roundIndicator.ShowRound(round, player);
+        roundIndicator.ShowRound(round, winList);
     }
 
     void Start()
