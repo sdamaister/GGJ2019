@@ -6,6 +6,11 @@ using UnityEngine.Assertions;
 public class Bonfire : MonoBehaviour
 {
     public int mBonfireIdx = 0;
+    private bool mHasWon;
+
+    void Start() {
+        mHasWon = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,9 +26,18 @@ public class Bonfire : MonoBehaviour
                 Pickable lPickable = lPlayerControllerComp.GetCurrentPickup();
                 if ((lPickable != null) && (lPickable.GetType() == typeof(TorchItem)))
                 {
-                    Debug.Log("Player " + mBonfireIdx + " wins!");
+                    // Debug.Log("Player " + mBonfireIdx + " wins!");
+                    mHasWon = true;
                 }
             }
         }
+    }
+
+    public bool HasWon() {
+        return mHasWon;
+    }
+
+    public void Reset() {
+        mHasWon = false;
     }
 }

@@ -32,4 +32,8 @@ public class PlayerLifeController : MonoBehaviour
     public float GetLifePercent () {
         return Life/100f;
     }
+
+    public void Reset () {
+        Life = 100.0f;
+    }
 }

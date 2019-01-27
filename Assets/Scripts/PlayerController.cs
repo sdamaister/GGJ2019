@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
         eAttacking,
         eDashing,
         eStunned,
-        eDead
+        eDead,
+        eComeOutOfTentAnim
     }
 
     public GameObject stunIndicator;
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviour
     private Pickable mCurrentPickup;
 
     private EPlayerState mCurrentState;
+
+    private Vector3 mInitialPosition;
 
     public void TryPickObject(GameObject pickup)
     {
@@ -79,6 +82,8 @@ public class PlayerController : MonoBehaviour
 
         attackBox = transform.Find("AttackBox").gameObject;
         attackBox.SetActive(false);
+
+        mInitialPosition = transform.position;
     }
 
     private void Update()
@@ -103,6 +108,8 @@ public class PlayerController : MonoBehaviour
                 OnStun();
                 break;
             case EPlayerState.eDead:
+                break;
+            case EPlayerState.eComeOutOfTentAnim:
                 break;
             default:
                 break;
@@ -215,7 +222,7 @@ public class PlayerController : MonoBehaviour
         stunIndicator.SetActive(true);
     }
 
-    private void Die()
+    public void Die()
     {
         mCurrentState = EPlayerState.eDead;
         DropHeldObject();
@@ -272,5 +279,24 @@ public class PlayerController : MonoBehaviour
             Idle();
             stunIndicator.SetActive(false);
         }
+    }
+
+    public void Reset()
+    {
+        if (playerLife == null) return;
+        playerLife.Reset();
+        cooldownRemainingTime = 0.0f;
+        if (mCurrentPickup != null) {
+            Debug.Log("Destroying pickup!");
+            Destroy(mCurrentPickup.gameObject);
+            mCurrentPickup = null;
+        }
+        transform.position = mInitialPosition;
+        Idle();
+        // mCurrentState = EPlayerState.eComeOutOfTentAnim;
+    }
+
+    public bool IsDead() {
+        return (EPlayerState.eDead == mCurrentState);
     }
 }
