@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public float mDashForce       = 10.0f;
     public float mDashingFriction = 0.1f;
     public float mDashSpeedFinish = 5.0f;
+    public float mAttackRotDeg = 45.0f;
+    public float mAttackRotTime = 1.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
@@ -37,6 +39,8 @@ public class PlayerController : MonoBehaviour
 
     private GameObject attackBox;
     private float cooldownRemainingTime = 0.0f;
+
+    private float mAttackElapsedTime = 0.0f;
 
     private Pickable mCurrentPickup;
 
@@ -192,6 +196,9 @@ public class PlayerController : MonoBehaviour
         attackBox.SetActive(true);
         cooldownRemainingTime = AttackCooldownTime;
 
+        mAnimator.SetBool("attacking", true);
+        mAttackElapsedTime = 0.0f;
+
         mRigidbody.velocity = Vector3.zero;
     }
 
@@ -270,7 +277,20 @@ public class PlayerController : MonoBehaviour
             attackBox.SetActive(false);
             mAnimator.SetBool("throwing", false);
             mAnimator.SetBool("holding", false);
+            mAnimator.SetBool("attacking", false);
             Idle();
+        }
+        else
+        {
+            mAttackElapsedTime += Time.deltaTime;
+            if (mAttackElapsedTime < mAttackRotTime)
+            {
+                transform.Rotate(Vector3.right, mAttackRotDeg * (mAttackElapsedTime / mAttackRotTime) * Mathf.Deg2Rad);
+            }
+            else if (mAttackElapsedTime < (mAttackRotTime * 2.0f))
+            {
+                transform.Rotate(Vector3.right, -mAttackRotDeg * ( (mAttackElapsedTime - mAttackRotTime) / mAttackRotTime) * Mathf.Deg2Rad);
+            }
         }
     }
 
