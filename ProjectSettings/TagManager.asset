@@ -9,6 +9,7 @@ TagManager:
   - Torch
   - Attack
   - TorchSpawn
+  - JoinLogic
   layers:
   - Default
   - TransparentFX

@@ -25,6 +25,40 @@ public class GameController : MonoBehaviour
         mGameState = EGameState.eGameCelebration;
         mGameStateClock = 0.4f;
 
+        for (int i = 0; i < players.Count; ++i)
+        {
+            players[i].enabled = false;
+        }
+
+            GameObject lGameObject = GameObject.FindWithTag("JoinLogic");
+        if (gameObject != null)
+        {
+            JoinLogic logic = lGameObject.GetComponent<JoinLogic>();
+
+            if (logic != null)
+            {
+                for (int i = 0; i < logic.mSelectedControllers.Length; ++i)
+                {
+                    if (logic.mSelectedControllers[i] != -1)
+                    {
+                        players[i].enabled = true;
+                        players[i].SetInputControllerIdx(logic.mSelectedControllers[i]);
+                    }
+                    else
+                    {
+                        players[i].enabled = false;
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < players.Count; ++i)
+            {
+                players[i].enabled = true;
+            }
+        }
+
         results = new List<int>();
     }
 

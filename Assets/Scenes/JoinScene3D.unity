@@ -1486,6 +1486,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: JoinLogic
       objectReference: {fileID: 0}
+    - target: {fileID: 6404488616722690757, guid: 1fe44413cd80d9f499366eb92f9d1f7d,
+        type: 3}
+      propertyPath: m_TagString
+      value: JoinLogic
+      objectReference: {fileID: 0}
     - target: {fileID: 6404488616722690758, guid: 1fe44413cd80d9f499366eb92f9d1f7d,
         type: 3}
       propertyPath: m_LocalPosition.x
