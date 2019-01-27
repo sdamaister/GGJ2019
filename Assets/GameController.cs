@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
     public List<PlayerController> players;
     public List<Bonfire> tents;
+    public GameOverlayUI ui;
     private List<int> results;
     private int mCurrentRound = 0;
 
@@ -100,6 +101,7 @@ public class GameController : MonoBehaviour
         }
         mGameState = EGameState.eGameReadyAnim; 
         mGameStateClock = 3f;
+        ui.ShowRound(mCurrentRound, results);
     }
     
     private void StartRound() {
