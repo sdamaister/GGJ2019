@@ -420,6 +420,9 @@ public class PlayerController : MonoBehaviour
         transform.rotation = mInitialRotation;
 
         nextMine = Random.Range(5.0f, 15.0f);
+
+        enabled = true;
+        mCurrentState = EPlayerState.eNone;
     }
 
     public void DoStartAnim() {
