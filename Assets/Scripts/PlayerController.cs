@@ -66,6 +66,11 @@ public class PlayerController : MonoBehaviour
 
     private SoundController soundController;
     private float nextMine = 0.0f;
+    
+    public void SetInputControllerIdx(int aIdx)
+    {
+        mInputManager.mControllerIdx = aIdx;
+    }
 
     public void TryPickObject(GameObject pickup)
     {
@@ -90,7 +95,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         mRigidbody = GetComponent<Rigidbody>();
         Assert.IsNotNull(mRigidbody);
