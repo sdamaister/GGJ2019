@@ -60,6 +60,9 @@ public class PlayerController : MonoBehaviour
     // Anims
     private float mComeOutAnimDuration = 1f;
 
+
+    private Renderer mRenderer;
+
     public void TryPickObject(GameObject pickup)
     {
         if (mCurrentPickup == null && mCurrentState != EPlayerState.eStunned)
@@ -103,6 +106,13 @@ public class PlayerController : MonoBehaviour
 
         mAnimator = GetComponent<Animator>();
         Assert.IsNotNull(mPhyMat);
+
+        Transform lTransform = transform.Find("Foxy_/IK Chain002/Foxy/Body");
+        if (lTransform != null)
+        {
+            mRenderer = lTransform.gameObject.GetComponent<Renderer>();
+            Assert.IsNotNull(mRenderer);
+        }
 
         playerLife.OnDie += Die;
 
@@ -160,6 +170,10 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
+        
+        // rendering stuff
+        mRenderer.material.SetFloat("_FreezeCoef", playerLife.GetLifePercent());
+        mRenderer.material.SetFloat("_Stunned", (mCurrentState == EPlayerState.eStunned) ? 1.0f : 0.0f);
     }
 
     // Update is called once per frame
