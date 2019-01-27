@@ -112,6 +112,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2194315 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2955130121376044152, guid: 6e495b615c2a24d23b328cf943328c12,
+    type: 3}
+  m_PrefabInstance: {fileID: 2426336379272933050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2194316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2194315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefdb7adb767541299ff7dbd66c3e50e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4436403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6680,15 +6698,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1962313259, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1077360917}
     - target: {fileID: 3423242633528924846, guid: 12e14792e619a4852818d968d7065e1e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 1962313259, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1077360917}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
 --- !u!4 &1563506427 stripped
@@ -7043,15 +7061,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1962313259, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1098582934}
     - target: {fileID: 3423242633528924846, guid: 12e14792e619a4852818d968d7065e1e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 1962313259, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1098582934}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12e14792e619a4852818d968d7065e1e, type: 3}
 --- !u!4 &1767000161 stripped
@@ -7568,6 +7586,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741704295432367446, guid: 6e495b615c2a24d23b328cf943328c12,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e495b615c2a24d23b328cf943328c12, type: 3}
