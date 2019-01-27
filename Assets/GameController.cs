@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
         }
 
             GameObject lGameObject = GameObject.FindWithTag("JoinLogic");
-        if (gameObject != null)
+        if (lGameObject != null)
         {
             JoinLogic logic = lGameObject.GetComponent<JoinLogic>();
 
