@@ -208,6 +208,8 @@ public class PlayerController : MonoBehaviour
         mRigidbody.AddForce(transform.forward * mDashForce, ForceMode.Impulse);
         mPhyMat.dynamicFriction = mDashingFriction;
 
+        mAnimator.SetBool("dashing", true);
+
         mCurrentState = EPlayerState.eDashing;
     }
 
@@ -223,6 +225,10 @@ public class PlayerController : MonoBehaviour
 
         mAnimator.SetBool("stunned", true);
         mAnimator.SetBool("walking", false);
+        mAnimator.SetBool("dashing", false);
+        mAnimator.SetBool("attacking", false);
+        mAnimator.SetBool("throwing", false);
+        mAnimator.SetBool("holding", false);
     }
 
     private void Die()
@@ -241,6 +247,7 @@ public class PlayerController : MonoBehaviour
     {
         if (mRigidbody.velocity.magnitude <= mDashSpeedFinish)
         {
+            mAnimator.SetBool("dashing", false);
             Idle();
         }
     }
