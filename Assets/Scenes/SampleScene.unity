@@ -417,7 +417,7 @@ Transform:
   - {fileID: 404018838}
   - {fileID: 1149459419}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &54251891
 PrefabInstance:
@@ -5452,7 +5452,7 @@ Transform:
   m_LocalScale: {x: 24.522654, y: 29.740206, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &288482413
 PrefabInstance:
@@ -5732,6 +5732,11 @@ PrefabInstance:
       propertyPath: mBonfireIdx
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5538b9d3f6824408d876a5f2949be0e1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1af09bead7c34c47bd24d3df36f2c56, type: 3}
 --- !u!4 &517541827 stripped
@@ -6602,6 +6607,11 @@ PrefabInstance:
       propertyPath: mBonfireIdx
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9409dd9a401644aca3bb85a88666be5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1af09bead7c34c47bd24d3df36f2c56, type: 3}
 --- !u!1 &1077360917 stripped
@@ -7091,7 +7101,7 @@ Transform:
   - {fileID: 1760976768}
   - {fileID: 1112930161}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1526834117
 PrefabInstance:
@@ -7989,7 +7999,7 @@ Transform:
   - {fileID: 416723004}
   - {fileID: 1767000161}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1925963435
 PrefabInstance:
@@ -8270,6 +8280,11 @@ PrefabInstance:
       propertyPath: mBonfireIdx
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5909dc31871824901926983a0f56e96a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1af09bead7c34c47bd24d3df36f2c56, type: 3}
 --- !u!1001 &2110424930
@@ -8408,7 +8423,7 @@ PrefabInstance:
     - target: {fileID: 929511131995805694, guid: 143e9f42b548941ad971fd00b9eb76b0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 929511131995805694, guid: 143e9f42b548941ad971fd00b9eb76b0,
         type: 3}
