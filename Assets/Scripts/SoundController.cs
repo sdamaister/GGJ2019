@@ -9,8 +9,14 @@ public class SoundController : MonoBehaviour
     public AudioClip[] GrabTorch;
     public AudioClip[] Stun;
     public AudioClip[] DieOfHeat;
+    public AudioClip[] DropTorch;
 
     private AudioSource emitter;
+
+    void Start()
+    {
+        emitter = GetComponent<AudioSource>();
+    }
 
     public float PlayMine()
     {
@@ -40,6 +46,11 @@ public class SoundController : MonoBehaviour
     public float PlayDieOfHeat()
     {
         return PlayAudio(SelectRandomClip(DieOfHeat));
+    }
+
+    public float PlayDropTorch()
+    {
+        return PlayAudio(SelectRandomClip(DropTorch));
     }
 
     private AudioClip SelectRandomClip(AudioClip[] list)

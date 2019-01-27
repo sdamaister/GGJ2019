@@ -344,11 +344,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mine: []
-  Throw: []
-  GrabStick: []
-  GrabTorch: []
-  Stun: []
-  DieOfHeat: []
+  Throw:
+  - {fileID: 8300000, guid: a8be3c1521691f140ba9e70be9bf13b5, type: 3}
+  - {fileID: 8300000, guid: 98e2d67e05dce854b9ffdcbb00cddb08, type: 3}
+  GrabStick:
+  - {fileID: 8300000, guid: e478e6a47475f9c41a8bd285d043dd23, type: 3}
+  - {fileID: 8300000, guid: d27da1c0f744a024284aa8162e6ff49a, type: 3}
+  - {fileID: 8300000, guid: 3c7b300b96125f546877fe4c66bdeccf, type: 3}
+  - {fileID: 8300000, guid: c30e7eed1cde165408b23dd716b4d958, type: 3}
+  - {fileID: 8300000, guid: 4ca82f3f2f959764983968a3b1ae32c7, type: 3}
+  GrabTorch:
+  - {fileID: 8300000, guid: b44f0c313d34ddd4e82efc3bba2df24b, type: 3}
+  - {fileID: 8300000, guid: 2f7a79906788f214e9cab0a2711c1d82, type: 3}
+  - {fileID: 8300000, guid: e503a86bbdec6904398a13527c8bea0e, type: 3}
+  - {fileID: 8300000, guid: 70cd4d7a4d6308546b0db9425e961800, type: 3}
+  Stun:
+  - {fileID: 8300000, guid: 5c51cef1e4dbbdc4e9d04b9825b7d2d1, type: 3}
+  - {fileID: 8300000, guid: f55d17c94a6f7cc4ab92b02fda0c8010, type: 3}
+  - {fileID: 8300000, guid: 783682a008a0b6d4899560971a67d0e1, type: 3}
+  DieOfHeat:
+  - {fileID: 8300000, guid: 96fc428707ea15549a2f7cb85586a694, type: 3}
+  DropTorch:
+  - {fileID: 8300000, guid: 46d59502f4ff87d439e519ede02ed7df, type: 3}
+  - {fileID: 8300000, guid: ff409888893abd545882228440d21cc7, type: 3}
+  - {fileID: 8300000, guid: 9a6eee689b1861c4997b9515c866f079, type: 3}
+  - {fileID: 8300000, guid: b5753e2c5f6bcbf4b977548a72fca071, type: 3}
 --- !u!1 &5744831190926007644
 GameObject:
   m_ObjectHideFlags: 0
