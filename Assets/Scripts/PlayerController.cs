@@ -372,6 +372,7 @@ public class PlayerController : MonoBehaviour
             mCurrentPickup = null;
         }
         transform.position = mInitialPosition;
+        transform.rotation = mInitialRotation;
         DoStartAnim();
     }
 
