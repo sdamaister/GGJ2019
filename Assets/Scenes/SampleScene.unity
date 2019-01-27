@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964127, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -265,22 +265,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5909dc31871824901926983a0f56e96a, type: 2}
     - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mPlayerIdX
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: tent
+      value: 
+      objectReference: {fileID: 112845517}
     - target: {fileID: 4211806087687150618, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mControllerIdx
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7716148975353315882, guid: 4864a09c87ee9734888252b3790e624d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 5909dc31871824901926983a0f56e96a, type: 2}
-    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -497,6 +502,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3423242633156436347, guid: 12e14792e619a4852818d968d7065e1e,
     type: 3}
   m_PrefabInstance: {fileID: 54251891}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &112845517 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6116441996165956584, guid: f1af09bead7c34c47bd24d3df36f2c56,
+    type: 3}
+  m_PrefabInstance: {fileID: 2100715078}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &113113134
 GameObject:
@@ -5280,7 +5291,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 458586708}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 602333149}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1558a6fbac7ad1b4087ac878503804e4, type: 3}
@@ -5653,22 +5664,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9409dd9a401644aca3bb85a88666be5, type: 2}
     - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mPlayerIdX
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: tent
+      value: 
+      objectReference: {fileID: 1113517388}
     - target: {fileID: 4211806087687150618, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mControllerIdx
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7716148975353315882, guid: 4864a09c87ee9734888252b3790e624d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f9409dd9a401644aca3bb85a88666be5, type: 2}
-    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5692,11 +5708,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TentTempModel2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
-        type: 3}
-      propertyPath: mBonfireIdx
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6116441996165956587, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
@@ -5752,6 +5763,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: mBonfireIdx
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
@@ -5998,6 +6014,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 556053279}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &602333149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6116441996165956584, guid: f1af09bead7c34c47bd24d3df36f2c56,
+    type: 3}
+  m_PrefabInstance: {fileID: 458586708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &606056095 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8749281718623627972, guid: 5e9913d385eb28848ac9706881b590f6,
@@ -6049,7 +6071,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 6116441995870874405}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1281394066}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1558a6fbac7ad1b4087ac878503804e4, type: 3}
@@ -6142,7 +6164,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1074072321}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1113517388}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1558a6fbac7ad1b4087ac878503804e4, type: 3}
@@ -6604,11 +6626,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TentTempModel3
       objectReference: {fileID: 0}
-    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
-        type: 3}
-      propertyPath: mBonfireIdx
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6116441996165956587, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6664,6 +6681,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: mBonfireIdx
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6712,6 +6734,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 493554320340948950, guid: 6e495b615c2a24d23b328cf943328c12,
     type: 3}
   m_PrefabInstance: {fileID: 1007404850}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1113517388 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6116441996165956584, guid: f1af09bead7c34c47bd24d3df36f2c56,
+    type: 3}
+  m_PrefabInstance: {fileID: 1074072321}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1129950269
 PrefabInstance:
@@ -6780,22 +6808,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5538b9d3f6824408d876a5f2949be0e1, type: 2}
     - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mPlayerIdX
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: tent
+      value: 
+      objectReference: {fileID: 602333149}
     - target: {fileID: 4211806087687150618, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: mControllerIdx
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7716148975353315882, guid: 4864a09c87ee9734888252b3790e624d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 5538b9d3f6824408d876a5f2949be0e1, type: 2}
-    - target: {fileID: 421706791861656064, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -6820,7 +6853,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2100715078}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 112845517}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1558a6fbac7ad1b4087ac878503804e4, type: 3}
@@ -6991,6 +7024,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ad6dde2af3e3b140911ed738cc503a0, type: 3}
+--- !u!1 &1281394066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6116441996165956584, guid: f1af09bead7c34c47bd24d3df36f2c56,
+    type: 3}
+  m_PrefabInstance: {fileID: 6116441995870874405}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1345934870
 GameObject:
   m_ObjectHideFlags: 0
@@ -8468,11 +8507,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TentTempModel1
       objectReference: {fileID: 0}
-    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
-        type: 3}
-      propertyPath: mBonfireIdx
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6116441996165956587, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8527,6 +8561,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123728989641102640, guid: f1af09bead7c34c47bd24d3df36f2c56,
+        type: 3}
+      propertyPath: mBonfireIdx
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1353431436726467658, guid: f1af09bead7c34c47bd24d3df36f2c56,
         type: 3}
@@ -9093,6 +9132,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4865718533018255499, guid: 4864a09c87ee9734888252b3790e624d,
+        type: 3}
+      propertyPath: tent
+      value: 
+      objectReference: {fileID: 1281394066}
     - target: {fileID: 7716148975341589322, guid: 4864a09c87ee9734888252b3790e624d,
         type: 3}
       propertyPath: m_LocalRotation.w

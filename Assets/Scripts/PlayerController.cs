@@ -14,11 +14,16 @@ public class PlayerController : MonoBehaviour
         eDashing,
         eStunned,
         eDead,
-        eComeOutOfTentAnim
+        eComeOutOfTentAnim,
+        eLookOtherFoxesAnim
     }
 
     public GameObject stunIndicator;
     public GameObject attackIndicator;
+
+    // used for start animation
+    public GameObject tent;
+
     public int   mPlayerIdX     = 0;
     public float mSpeed         = 150.0f;
     public float MinSpeedFactor = 0.4f;
@@ -49,6 +54,12 @@ public class PlayerController : MonoBehaviour
     private EPlayerState mCurrentState;
 
     private Vector3 mInitialPosition;
+    private Quaternion mInitialRotation;
+    private Vector3 mInsideTentPosition;
+    private Quaternion mTargetRotation;
+
+    // Anims
+    private float mComeOutAnimDuration = 1f;
 
     public void TryPickObject(GameObject pickup)
     {
@@ -83,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
         mInputManager = GetComponent<InputManager>();
         Assert.IsNotNull(mInputManager);
+        mInputManager.enabled = false;
 
         mCollider = GetComponent<Collider>();
         Assert.IsNotNull(mCollider);
@@ -98,7 +110,9 @@ public class PlayerController : MonoBehaviour
         attackBox = transform.Find("AttackBox").gameObject;
         attackBox.SetActive(false);
 
-        mInitialPosition = transform.position;
+        mInitialPosition = transform.position - transform.forward * 0.4f;
+        mInitialRotation = transform.rotation;
+        mInsideTentPosition = tent.transform.position + tent.transform.forward * 0.3f;
     }
 
     private void Update()
@@ -125,6 +139,24 @@ public class PlayerController : MonoBehaviour
             case EPlayerState.eDead:
                 break;
             case EPlayerState.eComeOutOfTentAnim:
+                float timeFactorRotation =  (mComeOutAnimDuration - cooldownRemainingTime + 0.1f)/(mComeOutAnimDuration);
+                timeFactorRotation = Mathf.Clamp(timeFactorRotation, 0f, 1f);
+
+                float timeFactorPosition = (mComeOutAnimDuration - cooldownRemainingTime) / mComeOutAnimDuration;
+                timeFactorPosition = Mathf.Clamp(timeFactorPosition, 0f, 1f);
+
+                transform.Find("FoxPivot").localRotation = Quaternion.Lerp(Quaternion.Euler(40, 0, 0), Quaternion.Euler(0, 0, 0), timeFactorRotation);
+                transform.position = Vector3.Lerp(mInsideTentPosition, mInitialPosition, timeFactorPosition);
+                if (cooldownRemainingTime <= 0) {
+                    LookAtOtherFox();
+                }
+                break;
+
+            case EPlayerState.eLookOtherFoxesAnim:
+                transform.rotation = Quaternion.Lerp(transform.rotation, mTargetRotation, 0.2f);
+                if (cooldownRemainingTime <= 0) {
+                    LookAtOtherFox();
+                }
                 break;
             default:
                 break;
@@ -202,9 +234,10 @@ public class PlayerController : MonoBehaviour
     }
 
     // State enter
-    private void Idle()
+    public void Idle()
     {
-        mPhyMat.dynamicFriction = 0;
+        mPhyMat.staticFriction = 0f;
+        mPhyMat.dynamicFriction = 0f;
         mCurrentState = EPlayerState.eIdle;
     }
 
@@ -342,11 +375,34 @@ public class PlayerController : MonoBehaviour
             mCurrentPickup = null;
         }
         transform.position = mInitialPosition;
-        Idle();
-        // mCurrentState = EPlayerState.eComeOutOfTentAnim;
+        DoStartAnim();
+    }
+
+    public void DoStartAnim() {
+        mInputManager.enabled = false;
+        mPhyMat.dynamicFriction = 1.0f;
+        mPhyMat.staticFriction = 1.0f;
+        mCurrentState = EPlayerState.eComeOutOfTentAnim;
+
+        transform.position = mInsideTentPosition;
+        transform.Find("FoxPivot").localRotation = Quaternion.Euler(40, 0, 0);
+        Debug.Log("DoStartAnim " + mPlayerIdX);
+        cooldownRemainingTime = mComeOutAnimDuration + Random.Range(1f, 1.5f);
+    }
+
+    public void LookAtOtherFox() {
+        mCurrentState = EPlayerState.eLookOtherFoxesAnim;
+        mTargetRotation = mInitialRotation * Quaternion.Euler(0, 45 * (Random.Range(0f, 1f) > 0.5f ? 1f : -1f), 0);
+        cooldownRemainingTime = 0.5f;
     }
 
     public bool IsDead() {
         return (EPlayerState.eDead == mCurrentState);
+    }
+
+    public void ReadyToPlay() {
+        Idle();
+        mInputManager.enabled = true;
+        enabled = true;
     }
 }

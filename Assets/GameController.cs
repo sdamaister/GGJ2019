@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
 
     private enum EGameState {
+        eGameReadyAnim,
         eGameRunning,
         eGameCelebration
     }
@@ -20,8 +21,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mGameState = EGameState.eGameRunning;
-        mGameStateClock = 0;
+        mGameState = EGameState.eGameCelebration;
+        mGameStateClock = 0.4f;
 
         results = new List<int>();
         NewRound();
@@ -36,6 +37,12 @@ public class GameController : MonoBehaviour
         bool clockIsDone = (mGameStateClock <= 0);
 
         switch(mGameState) {
+            case EGameState.eGameReadyAnim:
+                if (clockIsDone) {
+                    StartRound();
+                }
+                break;
+
             case EGameState.eGameRunning:
                 bool allDead = true;
                 foreach (PlayerController player in players) {
@@ -87,10 +94,19 @@ public class GameController : MonoBehaviour
         Debug.Log("Round " + mCurrentRound + ", fight!");
         foreach (PlayerController player in players) {
             player.Reset();
+            player.DoStartAnim();
         }
         foreach (Bonfire tent in tents) {
             tent.Reset();
         }
-        mGameState = EGameState.eGameRunning; 
+        mGameState = EGameState.eGameReadyAnim; 
+        mGameStateClock = 3f;
+    }
+    
+    private void StartRound() {
+        mGameState = EGameState.eGameRunning;
+        foreach (PlayerController player in players) {
+            player.ReadyToPlay();
+        }
     }
 }
