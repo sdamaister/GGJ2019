@@ -29,14 +29,20 @@ public class PlayerController : MonoBehaviour
     public float mDashForce       = 10.0f;
     public float mDashingFriction = 0.1f;
     public float mDashSpeedFinish = 5.0f;
+    public float mAttackRotDeg = 45.0f;
+    public float mAttackRotTime = 1.0f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
     private InputManager mInputManager;
     private PhysicMaterial mPhyMat;
+    private Animator mAnimator;
+    private Collider mCollider;
 
     private GameObject attackBox;
     private float cooldownRemainingTime = 0.0f;
+
+    private float mAttackElapsedTime = 0.0f;
 
     private Pickable mCurrentPickup;
 
@@ -59,6 +65,9 @@ public class PlayerController : MonoBehaviour
             mCurrentPickup.transform.parent = null;
             mCurrentPickup.OnDropped(this);
 
+            mAnimator.SetBool("holding", false);
+            mAnimator.SetBool("throwing", false);
+
             mCurrentPickup = null;
         }
     }
@@ -75,7 +84,13 @@ public class PlayerController : MonoBehaviour
         mInputManager = GetComponent<InputManager>();
         Assert.IsNotNull(mInputManager);
 
-        mPhyMat = GetComponent<Collider>().material;
+        mCollider = GetComponent<Collider>();
+        Assert.IsNotNull(mCollider);
+
+        mPhyMat = mCollider.material;
+        Assert.IsNotNull(mPhyMat);
+
+        mAnimator = GetComponent<Animator>();
         Assert.IsNotNull(mPhyMat);
 
         playerLife.OnDie += Die;
@@ -181,6 +196,8 @@ public class PlayerController : MonoBehaviour
         mCurrentPickup = pickup.GetComponent<Pickable>();
         Assert.IsNotNull(mCurrentPickup, "Object " + pickup.name + " doesn't have a 'Pickable' component");
 
+        mAnimator.SetBool("holding", true);
+
         mCurrentPickup.OnPickedUp(this);
     }
 
@@ -198,6 +215,9 @@ public class PlayerController : MonoBehaviour
         attackBox.SetActive(true);
         cooldownRemainingTime = AttackCooldownTime;
 
+        mAnimator.SetBool("attacking", true);
+        mAttackElapsedTime = 0.0f;
+
         mRigidbody.velocity = Vector3.zero;
     }
 
@@ -207,6 +227,8 @@ public class PlayerController : MonoBehaviour
         Vector3 lMoveDir = mRigidbody.velocity.normalized;
         mRigidbody.AddForce(transform.forward * mDashForce, ForceMode.Impulse);
         mPhyMat.dynamicFriction = mDashingFriction;
+
+        mAnimator.SetBool("dashing", true);
 
         mCurrentState = EPlayerState.eDashing;
     }
@@ -220,6 +242,13 @@ public class PlayerController : MonoBehaviour
         mRigidbody.AddForce(direction * 5.0f, ForceMode.Impulse);
         mPhyMat.dynamicFriction = 0.5f;
         stunIndicator.SetActive(true);
+
+        mAnimator.SetBool("stunned", true);
+        mAnimator.SetBool("walking", false);
+        mAnimator.SetBool("dashing", false);
+        mAnimator.SetBool("attacking", false);
+        mAnimator.SetBool("throwing", false);
+        mAnimator.SetBool("holding", false);
     }
 
     public void Die()
@@ -238,6 +267,7 @@ public class PlayerController : MonoBehaviour
     {
         if (mRigidbody.velocity.magnitude <= mDashSpeedFinish)
         {
+            mAnimator.SetBool("dashing", false);
             Idle();
         }
     }
@@ -250,11 +280,15 @@ public class PlayerController : MonoBehaviour
             transform.forward = lLookVector;
         }
 
+        mAnimator.SetBool("walking", mRigidbody.velocity.magnitude > 0.1f);
+
         if (mInputManager.IsRightTriggerPressed())
         {
             if (mCurrentPickup != null)
             {
                 mCurrentPickup.OnAction(this);
+                mAnimator.SetBool("holding", false);
+                mAnimator.SetBool("throwing", false);
             }
             else
             {
@@ -268,7 +302,22 @@ public class PlayerController : MonoBehaviour
         if (cooldownRemainingTime <= 0.0f)
         {
             attackBox.SetActive(false);
+            mAnimator.SetBool("throwing", false);
+            mAnimator.SetBool("holding", false);
+            mAnimator.SetBool("attacking", false);
             Idle();
+        }
+        else
+        {
+            mAttackElapsedTime += Time.deltaTime;
+            if (mAttackElapsedTime < mAttackRotTime)
+            {
+                transform.Rotate(Vector3.right, mAttackRotDeg * (mAttackElapsedTime / mAttackRotTime) * Mathf.Deg2Rad);
+            }
+            else if (mAttackElapsedTime < (mAttackRotTime * 2.0f))
+            {
+                transform.Rotate(Vector3.right, -mAttackRotDeg * ( (mAttackElapsedTime - mAttackRotTime) / mAttackRotTime) * Mathf.Deg2Rad);
+            }
         }
     }
 
@@ -276,6 +325,7 @@ public class PlayerController : MonoBehaviour
     {
         if (cooldownRemainingTime <= 0)
         {
+            mAnimator.SetBool("stunned", false);
             Idle();
             stunIndicator.SetActive(false);
         }
