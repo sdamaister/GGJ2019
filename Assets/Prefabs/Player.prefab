@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunIndicator: {fileID: 8756592583913067124}
+  attackIndicator: {fileID: 0}
   mPlayerIdX: 0
   mSpeed: 150
   MinSpeedFactor: 0.4
