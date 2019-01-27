@@ -146,7 +146,7 @@ public class GameController : MonoBehaviour
             }
         }
         for (int i = 0; i < 4; i++) {
-            if (playerWins[i] >= 3) {
+            if (playerWins[i] >= 4) {
                 Debug.Log("Player " + i + " has won 4 rounds, and wins the game!");
                 gameFinished = true;
                 gameWinner = i;
