@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour
                 mAnimator.SetBool("holding", false);
                 mAnimator.SetBool("throwing", false);
 
-                if (mCurrentPickup.tag == "Stick")
+                if (mCurrentPickup && mCurrentPickup.tag == "Stick")
                 {
                     soundController.PlayThrow();
                 }
