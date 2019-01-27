@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerLifeController))]
 [RequireComponent(typeof(InputManager))]
+[RequireComponent(typeof(SoundController))]
 public class PlayerController : MonoBehaviour
 {
     private enum EPlayerState
@@ -61,8 +62,10 @@ public class PlayerController : MonoBehaviour
     // Anims
     private float mComeOutAnimDuration = 1f;
 
-
     private Renderer mRenderer;
+
+    private SoundController soundController;
+    private float nextMine = 0.0f;
 
     public void TryPickObject(GameObject pickup)
     {
@@ -123,6 +126,9 @@ public class PlayerController : MonoBehaviour
         mInitialPosition = transform.position - transform.forward * 0.4f;
         mInitialRotation = transform.rotation;
         mInsideTentPosition = tent.transform.position + tent.transform.forward * 0.3f;
+
+        soundController = GetComponent<SoundController>();
+        Assert.IsNotNull(soundController);
     }
 
     private void Update()
@@ -177,6 +183,13 @@ public class PlayerController : MonoBehaviour
         // rendering stuff
         mRenderer.material.SetFloat("_FreezeCoef", playerLife.GetLifePercent());
         mRenderer.material.SetFloat("_Stunned", (mCurrentState == EPlayerState.eStunned) ? 1.0f : 0.0f);
+
+        if (nextMine <= 0.0f && mCurrentState != EPlayerState.eDead)
+        {
+            nextMine = soundController.PlayMine();
+            nextMine += Random.Range(5.0f, 15.0f);
+        }
+        nextMine -= Time.deltaTime;
     }
 
     // Update is called once per frame
@@ -245,6 +258,15 @@ public class PlayerController : MonoBehaviour
         mAnimator.SetBool("holding", true);
 
         mCurrentPickup.OnPickedUp(this);
+
+        if (pickup.tag == "Torch")
+        {
+            soundController.PlayGrabTorch();
+        }
+        else if (pickup.tag == "Stick")
+        {
+            soundController.PlayGrabStick();
+        }
     }
 
     // State enter
@@ -266,6 +288,8 @@ public class PlayerController : MonoBehaviour
         mAttackElapsedTime = 0.0f;
 
         mRigidbody.velocity = Vector3.zero;
+
+        soundController.PlayThrow();
     }
 
     private void Dash()
@@ -296,6 +320,8 @@ public class PlayerController : MonoBehaviour
         mAnimator.SetBool("attacking", false);
         mAnimator.SetBool("throwing", false);
         mAnimator.SetBool("holding", false);
+
+        soundController.PlayStun();
     }
 
     public void Die()
@@ -307,6 +333,8 @@ public class PlayerController : MonoBehaviour
         mPhyMat.staticFriction = 1.0f;
 
         enabled = false;
+
+        soundController.PlayDieOfHeat();
     }
 
     // States
@@ -390,6 +418,8 @@ public class PlayerController : MonoBehaviour
         }
         transform.position = mInitialPosition;
         transform.rotation = mInitialRotation;
+
+        nextMine = Random.Range(5.0f, 15.0f);
     }
 
     public void DoStartAnim() {
