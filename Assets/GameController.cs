@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
             case EGameState.eGameRunning:
                 bool allDead = true;
                 foreach (PlayerController player in players) {
-                    if (!player.IsDead()) {
+                    if (player.gameObject.active && !player.IsDead()) {
                         allDead = false;
                         break;
                     }
