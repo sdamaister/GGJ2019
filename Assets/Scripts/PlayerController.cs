@@ -196,6 +196,7 @@ public class PlayerController : MonoBehaviour
 
     private void Dash()
     {
+        return; // until proved useful gameplay wise
         Vector3 lMoveDir = mRigidbody.velocity.normalized;
         mRigidbody.AddForce(transform.forward * mDashForce, ForceMode.Impulse);
         mPhyMat.dynamicFriction = mDashingFriction;
