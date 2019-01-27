@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         mGameState = EGameState.eGameCelebration;
-        mGameStateClock = 0.4f;
+        mGameStateClock = 0.0f;
 
         results = new List<int>();
 
