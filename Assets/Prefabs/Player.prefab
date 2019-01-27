@@ -198,12 +198,12 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 52
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -211,23 +211,95 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.002
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -500.20065
+      outSlope: -500.20065
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.13369207
+      value: 0.49497986
+      inSlope: -125.05016
+      outSlope: -125.05016
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.19912587
+      value: 0.25
+      inSlope: -31.26254
+      outSlope: -31.26254
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.20712587
+      value: 0.125
+      inSlope: -7.815635
+      outSlope: -7.815635
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.22312587
+      value: 0.0625
+      inSlope: -1.9539088
+      outSlope: -1.9539088
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25512588
+      value: 0.03125
+      inSlope: -0.4884772
+      outSlope: -0.4884772
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.256
+      value: 0.0078125
+      inSlope: -0.030529825
+      outSlope: -0.030529825
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3191259
+      value: 0.015625
+      inSlope: -0.1221193
+      outSlope: -0.1221193
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.512
+      value: 0.00390625
+      inSlope: -0.0076324563
+      outSlope: -0.0076324563
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: 0.002
+      inSlope: -0.002000801
+      outSlope: -0.002000801
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -236,7 +308,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.288
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -344,11 +416,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mine: []
-  Throw: []
-  GrabStick: []
-  GrabTorch: []
-  Stun: []
-  DieOfHeat: []
+  Throw:
+  - {fileID: 8300000, guid: a8be3c1521691f140ba9e70be9bf13b5, type: 3}
+  - {fileID: 8300000, guid: 98e2d67e05dce854b9ffdcbb00cddb08, type: 3}
+  GrabStick:
+  - {fileID: 8300000, guid: e478e6a47475f9c41a8bd285d043dd23, type: 3}
+  - {fileID: 8300000, guid: d27da1c0f744a024284aa8162e6ff49a, type: 3}
+  - {fileID: 8300000, guid: 3c7b300b96125f546877fe4c66bdeccf, type: 3}
+  - {fileID: 8300000, guid: c30e7eed1cde165408b23dd716b4d958, type: 3}
+  - {fileID: 8300000, guid: 4ca82f3f2f959764983968a3b1ae32c7, type: 3}
+  GrabTorch:
+  - {fileID: 8300000, guid: b44f0c313d34ddd4e82efc3bba2df24b, type: 3}
+  - {fileID: 8300000, guid: 2f7a79906788f214e9cab0a2711c1d82, type: 3}
+  - {fileID: 8300000, guid: e503a86bbdec6904398a13527c8bea0e, type: 3}
+  - {fileID: 8300000, guid: 70cd4d7a4d6308546b0db9425e961800, type: 3}
+  Stun:
+  - {fileID: 8300000, guid: 5c51cef1e4dbbdc4e9d04b9825b7d2d1, type: 3}
+  - {fileID: 8300000, guid: f55d17c94a6f7cc4ab92b02fda0c8010, type: 3}
+  - {fileID: 8300000, guid: 783682a008a0b6d4899560971a67d0e1, type: 3}
+  DieOfHeat:
+  - {fileID: 8300000, guid: 96fc428707ea15549a2f7cb85586a694, type: 3}
+  DropTorch:
+  - {fileID: 8300000, guid: 46d59502f4ff87d439e519ede02ed7df, type: 3}
+  - {fileID: 8300000, guid: ff409888893abd545882228440d21cc7, type: 3}
+  - {fileID: 8300000, guid: 9a6eee689b1861c4997b9515c866f079, type: 3}
+  - {fileID: 8300000, guid: b5753e2c5f6bcbf4b977548a72fca071, type: 3}
 --- !u!1 &5744831190926007644
 GameObject:
   m_ObjectHideFlags: 0
