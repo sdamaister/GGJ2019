@@ -18,15 +18,24 @@ public class GameOverlayUI : MonoBehaviour
     public event Action OnAnimationFinished;
 
     [SerializeField] private RoundIndicatorUI roundIndicator;
+    [SerializeField] private VictoryUI victoryUi;
     private CanvasGroup canvasGroup;
 
     private OverlayStates state = OverlayStates.Hidden;
     private float remainingFade = 0.0f;
+    private bool doFadeOut = false;
 
     public void ShowRound(int round, List<int> winList)
     {
+        doFadeOut = true;
         BeginFade(roundIndicator.gameObject);
         roundIndicator.ShowRound(round, winList);
+    }
+
+    public void ShowVictory()
+    {
+        doFadeOut = false;
+        BeginFade(victoryUi.gameObject);
     }
 
     void Start()
@@ -64,8 +73,15 @@ public class GameOverlayUI : MonoBehaviour
 
                 if (remainingFade <= 0.0f)
                 {
-                    remainingFade = ShowTime;
-                    state = OverlayStates.Shown;
+                    if (doFadeOut)
+                    {
+                        remainingFade = ShowTime;
+                        state = OverlayStates.Shown;
+                    }
+                    else
+                    {
+                        state = OverlayStates.Hidden;
+                    }
                 }
 
                 break;

@@ -151,6 +151,7 @@ public class GameController : MonoBehaviour
                 gameFinished = true;
                 gameWinner = i;
                 camera.LookAtPlayer(i);
+                ui.ShowVictory();
                 break;
             }
         }
