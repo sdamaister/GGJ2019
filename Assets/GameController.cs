@@ -154,6 +154,15 @@ public class GameController : MonoBehaviour
                 break;
             }
         }
+
+        for (int i = 0; i < players.Count; ++i)
+        {
+            if (players[i].gameObject.activeInHierarchy)
+            {
+                players[i].StopWalking();
+                players[i].enabled = false;
+            }
+        }
     }
 
     private void NewRound () {
@@ -174,6 +183,14 @@ public class GameController : MonoBehaviour
     }
     
     private void StartRound() {
+        for (int i = 0; i < players.Count; ++i)
+        {
+            if (players[i].gameObject.activeInHierarchy)
+            {
+                players[i].enabled = true;
+            }
+        }
+
         mGameState = EGameState.eGameRunning;
         foreach (PlayerController player in players) {
             player.ReadyToPlay();
