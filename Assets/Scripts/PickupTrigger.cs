@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public class PickupTrigger : MonoBehaviour
 {
     public GameObject SpawnedFrom;
     public GameObject mPickupObject;
+
+    public float RotationSpeed = 100.0f;
+    public float ItemRotation = 26.0f;
 
     void Awake()
     {
@@ -17,6 +19,13 @@ public class PickupTrigger : MonoBehaviour
     {
         mPickupObject = item;
         mPickupObject.GetComponent<Pickable>().OnDemoBegin();
+
+        mPickupObject.transform.Rotate(Vector3.left, ItemRotation);
+    }
+
+    void Update()
+    {
+        transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime);
     }
     
     private void OnDestroy()
