@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
         mAnimator = GetComponent<Animator>();
         Assert.IsNotNull(mPhyMat);
 
-        Transform lTransform = transform.Find("Foxy_/IK Chain002/Foxy/Body");
+        Transform lTransform = transform.Find("FoxPivot/Foxy_/IK Chain002/Foxy/Body");
         if (lTransform != null)
         {
             mRenderer = lTransform.gameObject.GetComponent<Renderer>();
