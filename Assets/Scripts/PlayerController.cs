@@ -368,7 +368,7 @@ public class PlayerController : MonoBehaviour
         cooldownRemainingTime = 0.0f;
         if (mCurrentPickup != null) {
             Debug.Log("Destroying pickup!");
-            Destroy(mCurrentPickup.gameObject);
+            mCurrentPickup.DoDestroy();
             mCurrentPickup = null;
         }
         transform.position = mInitialPosition;
