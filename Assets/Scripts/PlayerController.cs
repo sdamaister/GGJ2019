@@ -24,13 +24,13 @@ public class PlayerController : MonoBehaviour
     public float MinSpeedFactor = 0.4f;
     public float MaxSpeedFactor = 1.0f;
     public float mAttatchOffset = 0.5f;
-    public float AttackCooldownTime = 2.0f;
+    public float AttackCooldownTime = 0.8f;
     public float StunCooldownTime = 3.0f;
     public float mDashForce       = 10.0f;
     public float mDashingFriction = 0.1f;
     public float mDashSpeedFinish = 5.0f;
     public float mAttackRotDeg = 45.0f;
-    public float mAttackRotTime = 1.0f;
+    public float mAttackRotTime = 0.2f;
 
     private Rigidbody mRigidbody;
     private PlayerLifeController playerLife;
@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
 
     private void PickObject(GameObject pickup)
     {
-        Transform socket = transform.Find("FoxPivot/Foxy_/Bone001/Bone002/Bone006/Bone027/Bone028/Bone029/Hand_R_Fire");
+        Transform socket = transform.Find("Foxy_/Bone001/Bone002/Bone006/Bone027/Bone028/Bone029/Hand_R_Fire");
         pickup.transform.parent = socket;
         pickup.transform.localPosition = (transform.forward + transform.up) * mAttatchOffset;
         pickup.transform.rotation = transform.rotation;
