@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     private enum EPlayerState
     {
+        eNone,
         eIdle,
         eAttacking,
         eDashing,
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private Pickable mCurrentPickup;
 
-    private EPlayerState mCurrentState;
+    private EPlayerState mCurrentState = EPlayerState.eNone;
 
     private Vector3 mInitialPosition;
     private Quaternion mInitialRotation;
@@ -133,6 +134,8 @@ public class PlayerController : MonoBehaviour
 
         switch(mCurrentState)
         {
+            case EPlayerState.eNone:
+                break;
             case EPlayerState.eIdle:
                 OnIdle();
                 break;
@@ -387,7 +390,6 @@ public class PlayerController : MonoBehaviour
         }
         transform.position = mInitialPosition;
         transform.rotation = mInitialRotation;
-        DoStartAnim();
     }
 
     public void DoStartAnim() {
@@ -400,6 +402,8 @@ public class PlayerController : MonoBehaviour
         transform.Find("FoxPivot").localRotation = Quaternion.Euler(40, 0, 0);
         Debug.Log("DoStartAnim " + mPlayerIdX);
         cooldownRemainingTime = mComeOutAnimDuration + Random.Range(1f, 1.5f);
+
+        playerLife.DecrementLife = false;
     }
 
     public void LookAtOtherFox() {
@@ -413,6 +417,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ReadyToPlay() {
+        playerLife.DecrementLife = true;
         transform.rotation = mInitialRotation;
         Idle();
         mInputManager.enabled = true;
